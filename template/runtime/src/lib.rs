@@ -1086,6 +1086,9 @@ pub mod pallet_custom {
 	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
 		fn on_finalize(block_number: BlockNumberFor<T>) {
 			log::info!("🇮🇹 on_finalize | Block number is {:?}", block_number);
+			
+			let total_block_transactions_count = frame_system::Pallet::<T>::extrinsic_count();
+			log::info!("🇮🇹 on_finalize | Extrinsic count is {:?}", total_block_transactions_count);
 		}
 
 		fn offchain_worker(block_number: BlockNumberFor<T> ) {
