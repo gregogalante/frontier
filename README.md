@@ -105,3 +105,9 @@ Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer]
 **View chain from block explorer:**
 
 Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9945#/explorer](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9945#/explorer)
+
+**Run all in one command:**
+
+```bash
+foreman start
+```
