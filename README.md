@@ -49,7 +49,7 @@ If your pull request introduces a new crate, please set its version to `1.0.0-de
 
 # FORK DOCS
 
-## Commands
+## Basic run
 
 **Build the project:**
 
@@ -67,3 +67,41 @@ cargo build --release # to compile the project with optimizations
 **View chain from block explorer:**
 
 Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer)
+
+## Run multiple nodes
+
+**Run first node Alice:**
+
+```bash
+./target/release/frontier-template-node purge-chain --base-path /tmp/alice --chain local -y
+
+./target/release/frontier-template-node \
+--base-path /tmp/alice \
+--chain local \
+--alice \
+--port 30333 \
+--rpc-port 9945 \
+--node-key 0000000000000000000000000000000000000000000000000000000000000001 \
+--telemetry-url "wss://telemetry.polkadot.io/submit/ 0" \
+--validator
+```
+
+**Run second node Bob:**
+
+```bash
+./target/release/frontier-template-node purge-chain --base-path /tmp/bob --chain local -y
+
+./target/release/frontier-template-node \
+--base-path /tmp/bob \
+--chain local \
+--bob \
+--port 30334 \
+--rpc-port 9946 \
+--telemetry-url "wss://telemetry.polkadot.io/submit/ 0" \
+--validator \
+--bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
+```
+
+**View chain from block explorer:**
+
+Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9945#/explorer](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9945#/explorer)
