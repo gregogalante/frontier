@@ -46,3 +46,24 @@ If the affected crate does not yet have `-dev` suffix:
 * If your change modifies the current interface, then bump the major version, and add `-dev` suffix.
 
 If your pull request introduces a new crate, please set its version to `1.0.0-dev`.
+
+# FORK DOCS
+
+## Commands
+
+**Build the project:**
+
+```bash
+cargo build # to check if the project compiles
+cargo build --release # to compile the project with optimizations
+```
+
+**Execute the chain:**
+
+```bash
+./target/release/frontier-template-node --dev
+```
+
+**View chain from block explorer:**
+
+Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer)
