@@ -494,6 +494,9 @@ mod runtime {
 
 	#[runtime::pallet_index(11)]
 	pub type ManualSeal = pallet_manual_seal;
+
+	#[runtime::pallet_index(12)]
+	pub type PalletBlock = pallet_custom;
 }
 
 #[derive(Clone)]
@@ -1056,4 +1059,40 @@ mod tests {
 			.base_extrinsic;
 		assert!(base_extrinsic.ref_time() <= min_ethereum_transaction_weight.ref_time());
 	}
+}
+
+// CUSTOM PALLET CODE
+////////////////////////////////////////////////////////////////////////////////
+
+#[frame_support::pallet]
+pub mod pallet_custom {
+  use frame_support::pallet_prelude::*;
+	use frame_system::pallet_prelude::BlockNumberFor;
+
+	#[pallet::pallet]
+	pub struct Pallet<T>(PhantomData<T>);
+
+	#[pallet::config]
+	pub trait Config: frame_system::Config {
+		
+	}
+
+	#[pallet::call]
+	impl<T: Config> Pallet<T> {
+
+	}
+
+	#[pallet::hooks]
+	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
+		fn on_finalize(block_number: BlockNumberFor<T>) {
+			log::info!("🇮🇹 on_finalize | Block number is {:?}", block_number);
+		}
+
+		fn offchain_worker(block_number: BlockNumberFor<T> ) {
+			log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
+		}
+	}
+}
+
+impl pallet_custom::Config for Runtime {
 }
