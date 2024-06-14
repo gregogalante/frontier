@@ -1089,6 +1089,16 @@ pub mod pallet_custom {
 			
 			let total_block_transactions_count = frame_system::Pallet::<T>::extrinsic_count();
 			log::info!("🇮🇹 on_finalize | Extrinsic count is {:?}", total_block_transactions_count);
+
+			// loop through all the transactions in the block
+			for i in 0..total_block_transactions_count {
+				let transactions_data = frame_system::Pallet::<T>::extrinsic_data(i);
+				log::info!("🇮🇹 on_finalize | Extrinsic data {:?} is {:?}", i, transactions_data);
+
+				// convert transactions_data to a hex string
+				let transactions_data_hex = hex::encode(transactions_data);
+				log::info!("🇮🇹 on_finalize | Extrinsic data hex {:?} is {:?}", i, transactions_data_hex);
+			}
 		}
 
 		fn offchain_worker(block_number: BlockNumberFor<T> ) {
