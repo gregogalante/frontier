@@ -118,3 +118,26 @@ Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9945#/explorer]
 ```bash
 foreman start
 ```
+
+# TRASH
+
+```rust
+
+if let Some(block) = frame_system::Pallet::<T>::block_hash(block_number).into() {
+  log::info!("🇮🇹 on_finalize | Block is {:?}", block);
+  // for extrinsic in block.extrinsics() {
+  // 	log::info!("Processing extrinsic: {:?}", extrinsic);
+  // }
+}
+
+// loop through all the transactions in the block
+for i in 0..total_block_transactions_count {
+  let transactions_data = frame_system::Pallet::<T>::extrinsic_data(i);
+  log::info!("🇮🇹 on_finalize | Extrinsic data {:?} is {:?}", i, transactions_data);
+
+  // convert the transaction data to from Vec<u8> to hex string
+  let transactions_data_hex = hex::encode(transactions_data);
+  log::info!("🇮🇹 on_finalize | Extrinsic data hex {:?} is {:?}", i, transactions_data_hex);
+}
+
+```

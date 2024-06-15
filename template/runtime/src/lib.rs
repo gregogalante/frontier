@@ -1086,18 +1086,19 @@ pub mod pallet_custom {
 	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
 		fn on_finalize(block_number: BlockNumberFor<T>) {
 			log::info!("🇮🇹 on_finalize | Block number is {:?}", block_number);
-			
+
+			let block_hash = frame_system::Pallet::<T>::block_hash(block_number);
+			log::info!("🇮🇹 on_finalize | Block hash is {:?}", block_hash);
+
+			// get the total number of transactions in the block
 			let total_block_transactions_count = frame_system::Pallet::<T>::extrinsic_count();
 			log::info!("🇮🇹 on_finalize | Extrinsic count is {:?}", total_block_transactions_count);
 
-			// loop through all the transactions in the block
+			// loop through all the transactions in the block, for each transaction, get the transaction data (nonce, address, value, data, gas_limit, gas_price, signature, etc)
 			for i in 0..total_block_transactions_count {
-				let transactions_data = frame_system::Pallet::<T>::extrinsic_data(i);
-				log::info!("🇮🇹 on_finalize | Extrinsic data {:?} is {:?}", i, transactions_data);
-
-				// convert transactions_data to a hex string
-				let transactions_data_hex = hex::encode(transactions_data);
-				log::info!("🇮🇹 on_finalize | Extrinsic data hex {:?} is {:?}", i, transactions_data_hex);
+				// get the transaction data
+				let transaction_data = frame_system::Pallet::<T>::extrinsic_data(i);
+				log::info!("🇮🇹 on_finalize | Transaction data is {:?}", transaction_data);
 			}
 		}
 

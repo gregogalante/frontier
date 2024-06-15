@@ -26,7 +26,21 @@ const _ = async () => {
       to: MAIN_PUBLIC_KEY,
       value: amount
     })
-    console.log('Transaction:', tx)
+    console.log('Transaction balance:', tx)
+  }
+
+  while (true) {
+    // make main to send to alith a transaction with a custom payload
+    const tx = await mainAccount.sendTransaction({
+      to: ALITH_PUBLIC_KEY,
+      value: 0,
+      data: '0x1234',
+      gasLimit: '1000000',
+      gasPrice: '1000000000'
+    })
+    console.log('Transaction data:', tx)
+
+    await new Promise(resolve => setTimeout(resolve, 6000))
   }
 }
 _()
