@@ -24,13 +24,14 @@ const _ = async () => {
     const amount = alithBalance / BigInt(2)
     const tx = await alithAccount.sendTransaction({
       to: MAIN_PUBLIC_KEY,
-      value: amount
+      value: amount,
     })
     console.log('Transaction balance:', tx)
+
+    await new Promise(resolve => setTimeout(resolve, 12000))
   }
 
   while (true) {
-    // make main to send to alith a transaction with a custom payload
     const tx = await mainAccount.sendTransaction({
       to: ALITH_PUBLIC_KEY,
       value: 0,
