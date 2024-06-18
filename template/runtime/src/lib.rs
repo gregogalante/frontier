@@ -1064,13 +1064,11 @@ mod tests {
 // CUSTOM PALLET CODE
 ////////////////////////////////////////////////////////////////////////////////
 
+
 #[frame_support::pallet]
 pub mod pallet_custom {
   use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::BlockNumberFor;
-	// use scale_codec::{Decode, Input};
-	// use sp_runtime::{MultiAddress, MultiSignature};
-	use alloc::{vec, vec::Vec};
 
 	#[pallet::pallet]
 	pub struct Pallet<T>(PhantomData<T>);
@@ -1079,7 +1077,9 @@ pub mod pallet_custom {
 	pub trait Config: frame_system::Config {}
 
 	#[pallet::call]
-	impl<T: Config> Pallet<T> {}
+	impl<T: Config> Pallet<T> {
+		
+	}
 
 	#[pallet::hooks]
 	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
@@ -1096,11 +1096,8 @@ pub mod pallet_custom {
 			// loop through all the transactions in the block, for each transaction, get the transaction data (nonce, address, value, data, gas_limit, gas_price, signature, etc)
 			for i in 0..total_block_transactions_count {
 				// get the transaction data
-				let transaction_data = frame_system::Pallet::<T>::extrinsic_data(i);
-				log::info!("🇮🇹 on_finalize | Transaction data is {:?}", transaction_data);
-
-				// decode the transaction data
-				// decode_extrinsic_data::<T>(transaction_data);
+				let extrinsic_data = frame_system::Pallet::<T>::extrinsic_data(i);
+				log::info!("🇮🇹 on_finalize | Extrinsic data is {:?}", extrinsic_data);
 			}
 		}
 
@@ -1108,14 +1105,6 @@ pub mod pallet_custom {
 			log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
 		}
 	}
-
-	// TODO: Qui ho crash a runtime, da risolvere
-	// fn decode_extrinsic_data<T: frame_system::Config>(extrinsic_data: Vec<u8>) {
-	// 	let mut input = &extrinsic_data[..];
-
-	// 	let signature = MultiSignature::decode(&mut input).unwrap();
-	// 	log::info!("🇮🇹 decode_extrinsic_data | Signature is {:?}", signature);
-	// }
 }
 
 impl pallet_custom::Config for Runtime {
