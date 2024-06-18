@@ -496,7 +496,7 @@ mod runtime {
 	pub type ManualSeal = pallet_manual_seal;
 
 	#[runtime::pallet_index(12)]
-	pub type PalletBlock = pallet_custom;
+	pub type PalletCustom = pallet_custom;
 }
 
 #[derive(Clone)]
@@ -1064,11 +1064,20 @@ mod tests {
 // CUSTOM PALLET CODE
 ////////////////////////////////////////////////////////////////////////////////
 
-
 #[frame_support::pallet]
 pub mod pallet_custom {
   use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::BlockNumberFor;
+	use frame_system::pallet_prelude::OriginFor;
+	use sp_io::offchain_index;
+	use sp_runtime::offchain::storage::StorageValueRef;
+	use alloc::vec::Vec;
+	use sp_version::sp_std::str;
+
+	const ONCHAIN_TX_KEY: &[u8] = b"pallet_custom::indexing1";
+
+	#[derive(Encode, Decode, Default)]
+	struct IndexingData(Vec<u8>, u64);
 
 	#[pallet::pallet]
 	pub struct Pallet<T>(PhantomData<T>);
@@ -1078,7 +1087,38 @@ pub mod pallet_custom {
 
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
-		
+		#[pallet::call_index(0)]
+		#[pallet::weight({0})]
+		pub fn extrinsic(origin: OriginFor<T>, number: u64) -> DispatchResult {
+			log::info!("🇮🇹 extrinsic | number is {:?}", number);
+
+			let _who = frame_system::ensure_signed(origin)?;
+
+			let key = Self::derived_key(frame_system::Pallet::<T>::block_number());
+			let data = IndexingData(b"submit_number_unsigned".to_vec(), number);
+			offchain_index::set(&key, &data.encode());
+			Ok(())
+		}
+	}
+
+	impl<T: Config> Pallet<T> {
+		fn derived_key(block_number: BlockNumberFor<T>) -> Vec<u8> {
+			log::info!("🇮🇹 derived_key | Block number is {:?}", block_number);
+			
+			let result = block_number.using_encoded(|encoded_bn| {
+				ONCHAIN_TX_KEY.into_iter()
+					.chain(b"/".into_iter())
+					.chain(encoded_bn)
+					.copied()
+					.collect::<Vec<u8>>()
+			});
+			log::info!("🇮🇹 derived_key | Result is {:?}", result);
+
+			let result_hex = hex::encode(result.clone());
+			log::info!("🇮🇹 derived_key | Result hex is {:?}", result_hex);
+
+			result
+		}
 	}
 
 	#[pallet::hooks]
@@ -1098,11 +1138,27 @@ pub mod pallet_custom {
 				// get the transaction data
 				let extrinsic_data = frame_system::Pallet::<T>::extrinsic_data(i);
 				log::info!("🇮🇹 on_finalize | Extrinsic data is {:?}", extrinsic_data);
+
+				// get the transaction data hex
+				let extrinsic_data_hex = hex::encode(extrinsic_data.clone());
+				log::info!("🇮🇹 on_finalize | Extrinsic data hex is {:?}", extrinsic_data_hex);
 			}
 		}
 
 		fn offchain_worker(block_number: BlockNumberFor<T> ) {
 			log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
+
+			// Reading back the offchain indexing value. This is exactly the same as reading from
+			// ocw local storage.
+			let key = Self::derived_key(block_number);
+			let storage_ref = StorageValueRef::persistent(&key);
+
+			if let Ok(Some(data)) = storage_ref.get::<IndexingData>() {
+				log::info!("🇮🇹 | local storage data: {:?}, {:?}",
+					str::from_utf8(&data.0).unwrap_or("error"), data.1);
+			} else {
+				log::info!("🇮🇹 | Error reading from local storage.");
+			}
 		}
 	}
 }
