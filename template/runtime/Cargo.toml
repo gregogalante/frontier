@@ -45,6 +45,7 @@ pallet-sudo = { workspace = true }
 pallet-timestamp = { workspace = true }
 pallet-transaction-payment = { workspace = true }
 pallet-transaction-payment-rpc-runtime-api = { workspace = true }
+pallet-contracts = { workspace = true }
 
 # Frontier
 fp-account = { workspace = true, features = ["serde"] }
@@ -99,6 +100,7 @@ std = [
 	"pallet-timestamp/std",
 	"pallet-transaction-payment/std",
 	"pallet-transaction-payment-rpc-runtime-api/std",
+	"pallet-contracts/std",
 	# Frontier
 	"fp-account/std",
 	"fp-evm/std",
