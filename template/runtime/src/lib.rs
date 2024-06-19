@@ -1066,13 +1066,15 @@ mod tests {
 
 #[frame_support::pallet]
 pub mod pallet_custom {
-  use frame_support::pallet_prelude::*;
+  use frame_support::pallet_prelude::{Hooks, DispatchResult, PhantomData, Encode, Decode};
 	use frame_system::pallet_prelude::BlockNumberFor;
 	use frame_system::pallet_prelude::OriginFor;
-	use sp_io::offchain_index;
 	use sp_runtime::offchain::storage::StorageValueRef;
-	use alloc::vec::Vec;
+	use sp_runtime::offchain::http;
+	use sp_runtime::offchain::Duration;
+	use sp_io::offchain_index;
 	use sp_version::sp_std::str;
+	use sp_version::sp_std::vec::Vec;
 
 	const ONCHAIN_TX_KEY: &[u8] = b"pallet_custom::indexing1";
 
@@ -1092,10 +1094,10 @@ pub mod pallet_custom {
 		pub fn extrinsic(origin: OriginFor<T>, number: u64) -> DispatchResult {
 			log::info!("🇮🇹 extrinsic | number is {:?}", number);
 
-			let _who = frame_system::ensure_signed(origin)?;
+			frame_system::ensure_signed(origin)?;
 
 			let key = Self::derived_key(frame_system::Pallet::<T>::block_number());
-			let data = IndexingData(b"submit_number_unsigned".to_vec(), number);
+			let data = IndexingData(b"input_number".to_vec(), number);
 			offchain_index::set(&key, &data.encode());
 			Ok(())
 		}
@@ -1119,26 +1121,42 @@ pub mod pallet_custom {
 
 			result
 		}
+
+		fn download_wasm() -> Result<Vec<u8>, http::Error> {
+			let deadline = sp_io::offchain::timestamp().add(Duration::from_millis(5_000));
+			let request = http::Request::get("https://storage.gregoriogalante.com/agent.wasm");
+			let pending = request.deadline(deadline).send().map_err(|_| http::Error::IoError)?;
+			let response = pending.try_wait(deadline).map_err(|_| http::Error::DeadlineReached)??;
+			if response.code != 200 {
+				log::info!("🇮🇹 download_wasm | Error downloading wasm: {:?}", response.code);
+				return Err(http::Error::Unknown);
+			} else {
+				let wasm = response.body().collect::<Vec<u8>>();
+				log::info!("🇮🇹 download_wasm | Downloaded wasm: {:?}", wasm.len());
+				return Ok(wasm);
+			}
+		}
+
+		fn execute_wasm(data: i32, wasm: Vec<u8>) -> i32 {
+			// TODO..
+			1
+		}
 	}
 
 	#[pallet::hooks]
 	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
 		fn on_finalize(block_number: BlockNumberFor<T>) {
 			log::info!("🇮🇹 on_finalize | Block number is {:?}", block_number);
-
 			let block_hash = frame_system::Pallet::<T>::block_hash(block_number);
 			log::info!("🇮🇹 on_finalize | Block hash is {:?}", block_hash);
-
 			// get the total number of transactions in the block
 			let total_block_transactions_count = frame_system::Pallet::<T>::extrinsic_count();
 			log::info!("🇮🇹 on_finalize | Extrinsic count is {:?}", total_block_transactions_count);
-
 			// loop through all the transactions in the block, for each transaction, get the transaction data (nonce, address, value, data, gas_limit, gas_price, signature, etc)
 			for i in 0..total_block_transactions_count {
 				// get the transaction data
 				let extrinsic_data = frame_system::Pallet::<T>::extrinsic_data(i);
 				log::info!("🇮🇹 on_finalize | Extrinsic data is {:?}", extrinsic_data);
-
 				// get the transaction data hex
 				let extrinsic_data_hex = hex::encode(extrinsic_data.clone());
 				log::info!("🇮🇹 on_finalize | Extrinsic data hex is {:?}", extrinsic_data_hex);
@@ -1148,16 +1166,26 @@ pub mod pallet_custom {
 		fn offchain_worker(block_number: BlockNumberFor<T> ) {
 			log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
 
-			// Reading back the offchain indexing value. This is exactly the same as reading from
-			// ocw local storage.
 			let key = Self::derived_key(block_number);
 			let storage_ref = StorageValueRef::persistent(&key);
 
 			if let Ok(Some(data)) = storage_ref.get::<IndexingData>() {
-				log::info!("🇮🇹 | local storage data: {:?}, {:?}",
-					str::from_utf8(&data.0).unwrap_or("error"), data.1);
+				log::info!("🇮🇹 offchain_worker | Local storage data: {:?}, {:?}", str::from_utf8(&data.0).unwrap_or("error"), data.1);
+
+				// download wasm
+				let wasm = match Self::download_wasm() {
+					Ok(wasm) => wasm,
+					Err(e) => {
+						log::info!("🇮🇹 offchain_worker | Error downloading wasm: {:?}", e);
+						return;
+					}
+				};
+
+				// execute wasm
+				let result = Self::execute_wasm(data.1 as i32, wasm);
+				log::info!("🇮🇹 offchain_worker | Wasm result: {:?}", result);
 			} else {
-				log::info!("🇮🇹 | Error reading from local storage.");
+				log::info!("🇮🇹 offchain_worker | Error reading from local storage.");
 			}
 		}
 	}
