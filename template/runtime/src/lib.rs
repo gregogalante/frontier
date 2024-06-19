@@ -1076,7 +1076,7 @@ pub mod pallet_custom {
 	use sp_version::sp_std::str;
 	use sp_version::sp_std::vec::Vec;
 
-	const ONCHAIN_TX_KEY: &[u8] = b"pallet_custom::indexing1";
+	const ONCHAIN_TX_KEY: &[u8] = b"pallet_custom::indexing";
 
 	#[derive(Encode, Decode, Default)]
 	struct IndexingData(Vec<u8>, u64);
@@ -1137,8 +1137,9 @@ pub mod pallet_custom {
 			}
 		}
 
-		fn execute_wasm(data: i32, wasm: Vec<u8>) -> i32 {
-			// TODO..
+		fn execute_wasm(data: i32, _wasm: Vec<u8>) -> i32 {
+			log::info!("🇮🇹 execute_wasm | Data is {:?}", data);
+
 			1
 		}
 	}
