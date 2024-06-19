@@ -16,6 +16,7 @@ scale-codec = { package = "parity-scale-codec", workspace = true }
 scale-info = { workspace = true }
 log = { workspace = true }
 hex = { workspace = true }
+pallet-contracts = { workspace = true }
 
 # Substrate
 sp-api = { workspace = true }
@@ -60,6 +61,7 @@ pallet-evm-chain-id = { workspace = true }
 pallet-evm-precompile-modexp = { workspace = true }
 pallet-evm-precompile-sha3fips = { workspace = true }
 pallet-evm-precompile-simple = { workspace = true }
+
 
 [build-dependencies]
 substrate-wasm-builder = { workspace = true, optional = true }
