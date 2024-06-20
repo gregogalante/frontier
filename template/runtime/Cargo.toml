@@ -46,6 +46,7 @@ pallet-timestamp = { workspace = true }
 pallet-transaction-payment = { workspace = true }
 pallet-transaction-payment-rpc-runtime-api = { workspace = true }
 pallet-contracts = { workspace = true }
+pallet-insecure-randomness-collective-flip = { workspace = true }
 
 # Frontier
 fp-account = { workspace = true, features = ["serde"] }
@@ -101,6 +102,7 @@ std = [
 	"pallet-transaction-payment/std",
 	"pallet-transaction-payment-rpc-runtime-api/std",
 	"pallet-contracts/std",
+	"pallet-insecure-randomness-collective-flip/std",
 	# Frontier
 	"fp-account/std",
 	"fp-evm/std",

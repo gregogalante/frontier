@@ -1,0 +1,1858 @@
+warning: /Users/jacopomosconi/Desktop/frontier/frame/dynamic-fee/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/storage-cleaner/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/precompiles/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/primitives/self-contained/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/client/mapping-sync/Cargo.toml: unused manifest key: dev-dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/frame/ethereum/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/dispatch/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/client/cli/Cargo.toml: unused manifest key: dev-dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/frame/evm/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/primitives/ethereum/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/primitives/consensus/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/primitives/evm/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/client/storage/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/primitives/account/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/template/node/Cargo.toml: unused manifest key: dependencies.prometheus-endpoint.package
+warning: /Users/jacopomosconi/Desktop/frontier/template/node/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/client/db/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/frame/base-fee/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/client/rpc/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/precompiles/tests-external/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/frame/evm-chain-id/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/primitives/rpc/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/primitives/storage/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/client/api/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/frame/hotfix-sufficients/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: /Users/jacopomosconi/Desktop/frontier/template/runtime/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+warning: field `0` is never read
+  --> precompiles/macro/src/precompile/attr.rs:58:9
+   |
+58 |     Public(Span, syn::LitStr),
+   |     ------ ^^^^
+   |     |
+   |     field in this variant
+   |
+   = note: `#[warn(dead_code)]` on by default
+help: consider changing the field to be of unit type to suppress this warning while preserving the field numbering, or remove the field
+   |
+58 |     Public((), syn::LitStr),
+   |            ~~
+
+warning: field `0` is never read
+   --> precompiles/macro/src/precompile/attr.rs:110:16
+    |
+110 |     PrecompileSet(Span),
+    |     ------------- ^^^^
+    |     |
+    |     field in this variant
+    |
+help: consider changing the field to be of unit type to suppress this warning while preserving the field numbering, or remove the field
+    |
+110 |     PrecompileSet(()),
+    |                   ~~
+
+warning: `precompile-utils-macro` (lib) generated 2 warnings
+   Compiling frontier-template-runtime v0.0.0 (/Users/jacopomosconi/Desktop/frontier/template/runtime)
+warning: method `one_to_many_error` is never used
+  --> client/cli/src/frontier_db_cmd/utils.rs:94:5
+   |
+65 | pub trait FrontierDbMessage {
+   |           ----------------- method in this trait
+...
+94 |     fn one_to_many_error(&self) -> sc_cli::Error {
+   |        ^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: `fc-cli` (lib) generated 1 warning
+warning: `precompile-utils-macro` (lib) generated 2 warnings (2 duplicates)
+error: failed to run custom build command for `frontier-template-runtime v0.0.0 (/Users/jacopomosconi/Desktop/frontier/template/runtime)`
+
+Caused by:
+  process didn't exit successfully: `/Users/jacopomosconi/Desktop/frontier/target/release/build/frontier-template-runtime-6caacc979ff2446e/build-script-build` (exit status: 1)
+  --- stdout
+  Information that should be included in a bug report.
+  Executing build command: env -u CARGO_ENCODED_RUSTFLAGS -u RUSTC CARGO_TARGET_DIR="/Users/jacopomosconi/Desktop/frontier/target/release/wbuild/frontier-template-runtime/target" RUSTC_BOOTSTRAP="1" RUSTFLAGS="-C target-cpu=mvp -C target-feature=-sign-ext -C link-arg=--export-table -Clink-arg=--export=__heap_base -C link-arg=--import-memory  --cfg substrate_runtime " SKIP_WASM_BUILD="" "/Users/jacopomosconi/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo" "rustc" "--target=wasm32-unknown-unknown" "--manifest-path=/Users/jacopomosconi/Desktop/frontier/target/release/wbuild/frontier-template-runtime/Cargo.toml" "--color=always" "--profile" "release" "-Z" "build-std"
+  Using rustc version: rustc 1.79.0 (129f3b996 2024-06-10)
+
+
+  --- stderr
+  warning: /Users/jacopomosconi/Desktop/frontier/template/runtime/Cargo.toml: unused manifest key: dependencies.scale-codec.package
+       Locking 1 package to latest compatible version
+        Adding frontier-template-runtime-blob v1.0.0 (/Users/jacopomosconi/Desktop/frontier/target/release/wbuild/frontier-template-runtime)
+  warning: external crate `panic_unwind` unused in `fp_evm`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/evm/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/evm/src/lib.rs:19:9
+     |
+  19 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `fp_evm`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/evm/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `fp_evm`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/evm/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: `fp-evm` (lib) generated 3 warnings
+  warning: external crate `panic_unwind` unused in `fp_account`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/account/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/account/src/lib.rs:19:9
+     |
+  19 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `fp_account`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/account/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `fp_account`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/account/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: `fp-account` (lib) generated 3 warnings
+  warning: external crate `panic_unwind` unused in `pallet_evm`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/src/lib.rs:18:1
+     |
+  18 | //! # EVM Pallet
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/src/lib.rs:55:9
+     |
+  55 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `pallet_evm`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/src/lib.rs:18:1
+     |
+  18 | //! # EVM Pallet
+     | ^
+
+  warning: external crate `std` unused in `pallet_evm`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/src/lib.rs:18:1
+     |
+  18 | //! # EVM Pallet
+     | ^
+
+  warning: external crate `panic_unwind` unused in `fp_rpc`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/rpc/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/rpc/src/lib.rs:20:9
+     |
+  20 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `fp_rpc`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/rpc/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `fp_rpc`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/rpc/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `panic_unwind` unused in `fp_ethereum`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/ethereum/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/ethereum/src/lib.rs:19:9
+     |
+  19 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `fp_ethereum`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/ethereum/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `fp_ethereum`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/ethereum/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `panic_unwind` unused in `fp_consensus`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/consensus/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/consensus/src/lib.rs:20:9
+     |
+  20 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `fp_consensus`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/consensus/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `fp_consensus`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/consensus/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: `pallet-evm` (lib) generated 3 warnings
+  warning: `fp-rpc` (lib) generated 3 warnings
+  warning: `fp-ethereum` (lib) generated 3 warnings
+  warning: `fp-consensus` (lib) generated 3 warnings
+  warning: external crate `alloc` unused in `fp_dynamic_fee`: remove the dependency or add `use alloc as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/dynamic-fee/src/lib.rs:18:1
+     |
+  18 | //! Core types and inherents for dynamic fee.
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/dynamic-fee/src/lib.rs:21:9
+     |
+  21 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `panic_unwind` unused in `fp_dynamic_fee`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/dynamic-fee/src/lib.rs:18:1
+     |
+  18 | //! Core types and inherents for dynamic fee.
+     | ^
+
+  warning: external crate `proc_macro` unused in `fp_dynamic_fee`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/dynamic-fee/src/lib.rs:18:1
+     |
+  18 | //! Core types and inherents for dynamic fee.
+     | ^
+
+  warning: external crate `std` unused in `fp_dynamic_fee`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/dynamic-fee/src/lib.rs:18:1
+     |
+  18 | //! Core types and inherents for dynamic fee.
+     | ^
+
+  warning: external crate `alloc` unused in `fp_storage`: remove the dependency or add `use alloc as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/storage/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/storage/src/lib.rs:19:9
+     |
+  19 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `panic_unwind` unused in `fp_storage`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/storage/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `proc_macro` unused in `fp_storage`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/storage/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `fp_storage`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/storage/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: `fp-dynamic-fee` (lib) generated 4 warnings
+  warning: `fp-storage` (lib) generated 4 warnings
+  warning: external crate `alloc` unused in `pallet_dynamic_fee`: remove the dependency or add `use alloc as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/dynamic-fee/src/lib.rs:19:1
+     |
+  19 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/frame/dynamic-fee/src/lib.rs:20:9
+     |
+  20 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `panic_unwind` unused in `pallet_dynamic_fee`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/dynamic-fee/src/lib.rs:19:1
+     |
+  19 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `proc_macro` unused in `pallet_dynamic_fee`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/dynamic-fee/src/lib.rs:19:1
+     |
+  19 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `pallet_dynamic_fee`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/dynamic-fee/src/lib.rs:19:1
+     |
+  19 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `panic_unwind` unused in `pallet_evm_precompile_simple`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/simple/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/simple/src/lib.rs:19:9
+     |
+  19 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `pallet_evm_precompile_simple`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/simple/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `pallet_evm_precompile_simple`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/simple/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `panic_unwind` unused in `pallet_ethereum`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/ethereum/src/lib.rs:18:1
+     |
+  18 | //! # Ethereum pallet
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/frame/ethereum/src/lib.rs:26:9
+     |
+  26 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `pallet_ethereum`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/ethereum/src/lib.rs:18:1
+     |
+  18 | //! # Ethereum pallet
+     | ^
+
+  warning: external crate `std` unused in `pallet_ethereum`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/ethereum/src/lib.rs:18:1
+     |
+  18 | //! # Ethereum pallet
+     | ^
+
+  warning: `pallet-dynamic-fee` (lib) generated 4 warnings
+  warning: `pallet-evm-precompile-simple` (lib) generated 3 warnings
+  warning: `pallet-ethereum` (lib) generated 3 warnings
+  warning: external crate `panic_unwind` unused in `pallet_evm_precompile_modexp`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/modexp/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/modexp/src/lib.rs:20:9
+     |
+  20 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `pallet_evm_precompile_modexp`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/modexp/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `pallet_evm_precompile_modexp`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/modexp/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `panic_unwind` unused in `pallet_evm_precompile_sha3fips`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/sha3fips/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/sha3fips/src/lib.rs:19:9
+     |
+  19 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `proc_macro` unused in `pallet_evm_precompile_sha3fips`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/sha3fips/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `pallet_evm_precompile_sha3fips`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm/precompile/sha3fips/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `alloc` unused in `pallet_base_fee`: remove the dependency or add `use alloc as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/base-fee/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/frame/base-fee/src/lib.rs:20:9
+     |
+  20 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `panic_unwind` unused in `pallet_base_fee`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/base-fee/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `proc_macro` unused in `pallet_base_fee`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/base-fee/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `pallet_base_fee`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/base-fee/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: `pallet-evm-precompile-modexp` (lib) generated 3 warnings
+  warning: `pallet-evm-precompile-sha3fips` (lib) generated 3 warnings
+  warning: `pallet-base-fee` (lib) generated 4 warnings
+  warning: external crate `alloc` unused in `pallet_evm_chain_id`: remove the dependency or add `use alloc as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm-chain-id/src/lib.rs:18:1
+     |
+  18 | //! # EVM chain ID pallet
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm-chain-id/src/lib.rs:29:9
+     |
+  29 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `panic_unwind` unused in `pallet_evm_chain_id`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm-chain-id/src/lib.rs:18:1
+     |
+  18 | //! # EVM chain ID pallet
+     | ^
+
+  warning: external crate `proc_macro` unused in `pallet_evm_chain_id`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm-chain-id/src/lib.rs:18:1
+     |
+  18 | //! # EVM chain ID pallet
+     | ^
+
+  warning: external crate `std` unused in `pallet_evm_chain_id`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/frame/evm-chain-id/src/lib.rs:18:1
+     |
+  18 | //! # EVM chain ID pallet
+     | ^
+
+  warning: external crate `alloc` unused in `fp_self_contained`: remove the dependency or add `use alloc as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/self-contained/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+     |
+  note: the lint level is defined here
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/self-contained/src/lib.rs:19:9
+     |
+  19 | #![warn(unused_crate_dependencies)]
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  warning: external crate `panic_unwind` unused in `fp_self_contained`: remove the dependency or add `use panic_unwind as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/self-contained/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `proc_macro` unused in `fp_self_contained`: remove the dependency or add `use proc_macro as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/self-contained/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: external crate `std` unused in `fp_self_contained`: remove the dependency or add `use std as _;`
+    --> /Users/jacopomosconi/Desktop/frontier/primitives/self-contained/src/lib.rs:18:1
+     |
+  18 | #![cfg_attr(not(feature = "std"), no_std)]
+     | ^
+
+  warning: `pallet-evm-chain-id` (lib) generated 4 warnings
+  warning: `fp-self-contained` (lib) generated 4 warnings
+     Compiling frontier-template-runtime v0.0.0 (/Users/jacopomosconi/Desktop/frontier/template/runtime)
+  error: no rules expected the token `your_tt_return`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:466:1
+      |
+  466 | #[frame_support::runtime]
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^ no rules expected this token in macro call
+      |
+     ::: /Users/jacopomosconi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tt-call-1.0.9/src/lib.rs:500:13
+      |
+  500 |             $input:ident = [{ $($tokens:tt)* }]
+      |             ------------
+      |
+  note: while trying to match `frame_support`
+     --> /Users/jacopomosconi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pallet-insecure-randomness-collective-flip-20.0.0/src/lib.rs:90:1
+      |
+  90  | #[frame_support::pallet]
+      | ^^^^^^^^^^^^^^^^^^^^^^^^
+      = note: captured metavariables except for `:tt`, `:ident` and `:lifetime` cannot be compared to other tokens
+      = note: see <https://doc.rust-lang.org/nightly/reference/macros-by-example.html#forwarding-a-matched-fragment> for more information
+      = note: this error originates in the macro `frame_support::__private::tt_call` which comes from the expansion of the attribute macro `frame_support::pallet` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:115:35
+      |
+  115 |     frame_system::CheckNonZeroSender<Runtime>,
+      |                                      ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  114 | pub type SignedExtra<Runtime> = (
+      |                     +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:116:33
+      |
+  116 |     frame_system::CheckSpecVersion<Runtime>,
+      |                                    ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  114 | pub type SignedExtra<Runtime> = (
+      |                     +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:117:31
+      |
+  117 |     frame_system::CheckTxVersion<Runtime>,
+      |                                  ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  114 | pub type SignedExtra<Runtime> = (
+      |                     +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:118:29
+      |
+  118 |     frame_system::CheckGenesis<Runtime>,
+      |                                ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  114 | pub type SignedExtra<Runtime> = (
+      |                     +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:119:25
+      |
+  119 |     frame_system::CheckEra<Runtime>,
+      |                            ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  114 | pub type SignedExtra<Runtime> = (
+      |                     +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:120:27
+      |
+  120 |     frame_system::CheckNonce<Runtime>,
+      |                              ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  114 | pub type SignedExtra<Runtime> = (
+      |                     +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:121:28
+      |
+  121 |     frame_system::CheckWeight<Runtime>,
+      |                               ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  114 | pub type SignedExtra<Runtime> = (
+      |                     +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:122:55
+      |
+  122 |     pallet_transaction_payment::ChargeTransactionPayment<Runtime>,
+      |                                                          ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  114 | pub type SignedExtra<Runtime> = (
+      |                     +++++++++
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:127:49
+      |
+  127 |     fp_self_contained::UncheckedExtrinsic<Address, RuntimeCall, Signature, SignedExtra>;
+      |                                                    ^^^^^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  126 | pub type UncheckedExtrinsic<RuntimeCall> =
+      |                            +++++++++++++
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:131:49
+      |
+  131 |     fp_self_contained::CheckedExtrinsic<AccountId, RuntimeCall, SignedExtra, H160>;
+      |                                                    ^^^^^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  130 | pub type CheckedExtrinsic<RuntimeCall> =
+      |                          +++++++++++++
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:134:49
+      |
+  134 | pub type SignedPayload = generic::SignedPayload<RuntimeCall, SignedExtra>;
+      |                                                 ^^^^^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  134 | pub type SignedPayload<RuntimeCall> = generic::SignedPayload<RuntimeCall, SignedExtra>;
+      |                       +++++++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:138:2
+      |
+  138 |     Runtime,
+      |     ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  137 | pub type Executive<Runtime> = frame_executive::Executive<
+      |                   +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:140:29
+      |
+  140 |     frame_system::ChainContext<Runtime>,
+      |                                ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  137 | pub type Executive<Runtime> = frame_executive::Executive<
+      |                   +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:141:2
+      |
+  141 |     Runtime,
+      |     ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  137 | pub type Executive<Runtime> = frame_executive::Executive<
+      |                   +++++++++
+
+  error[E0412]: cannot find type `AllPalletsWithSystem` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:142:2
+      |
+  142 |     AllPalletsWithSystem,
+      |     ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  137 | pub type Executive<AllPalletsWithSystem> = frame_executive::Executive<
+      |                   ++++++++++++++++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:143:30
+      |
+  143 |     pallet_contracts::Migration<Runtime>,
+      |                                 ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  137 | pub type Executive<Runtime> = frame_executive::Executive<
+      |                   +++++++++
+
+  error[E0412]: cannot find type `Aura` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:171:14
+      |
+  171 |             pub aura: Aura,
+      |                       ^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Grandpa` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:172:17
+      |
+  172 |             pub grandpa: Grandpa,
+      |                          ^^^^^^^ help: a type alias with a similar name exists: `GrandpaId`
+      |
+     ::: /Users/jacopomosconi/.cargo/git/checkouts/polkadot-sdk-cff69157b985ed76/b31a0f1/substrate/primitives/consensus/grandpa/src/lib.rs:56:1
+      |
+  56  | pub type AuthorityId = app::Public;
+      | -------------------- similarly named type alias `GrandpaId` defined here
+
+  error[E0412]: cannot find type `Aura` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:171:14
+      |
+  171 |             pub aura: Aura,
+      |                       ^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+     --> /Users/jacopomosconi/.cargo/git/checkouts/polkadot-sdk-cff69157b985ed76/b31a0f1/substrate/primitives/runtime/src/traits.rs:2025:19
+      |
+  2025|         pub struct $name<Aura> {
+      |                         ++++++
+
+  error[E0412]: cannot find type `Grandpa` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:172:17
+      |
+  172 |             pub grandpa: Grandpa,
+      |                          ^^^^^^^
+      |
+     ::: /Users/jacopomosconi/.cargo/git/checkouts/polkadot-sdk-cff69157b985ed76/b31a0f1/substrate/primitives/consensus/grandpa/src/lib.rs:56:1
+      |
+  56  | pub type AuthorityId = app::Public;
+      | -------------------- similarly named type alias `GrandpaId` defined here
+      |
+  help: a type alias with a similar name exists
+      |
+  172 |             pub grandpa: GrandpaId,
+      |                          ~~~~~~~~~
+  help: you might be missing a type parameter
+     --> /Users/jacopomosconi/.cargo/git/checkouts/polkadot-sdk-cff69157b985ed76/b31a0f1/substrate/primitives/runtime/src/traits.rs:2025:19
+      |
+  2025|         pub struct $name<Grandpa> {
+      |                         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:222:61
+      |
+  222 | impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
+      |                                                             ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:236:31
+      |
+  236 | impl frame_system::Config for Runtime {
+      |                               ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeEvent` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:235:1
+      |
+  235 | #[derive_impl(frame_system::config_preludes::SolochainDefaultConfig as frame_system::DefaultConfig)]
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |
+      = note: this error originates in the macro `frame_system::config_preludes::SolochainDefaultConfig` which comes from the expansion of the macro `frame_support::macro_magic::forward_tokens_verbatim` (in Nightly builds, run with -Z macro-backtrace for more info)
+  help: you might have meant to use the associated type
+     --> /Users/jacopomosconi/.cargo/git/checkouts/polkadot-sdk-cff69157b985ed76/b31a0f1/substrate/frame/system/src/lib.rs:376:9
+      |
+  376 |             type Self::RuntimeEvent = ();
+      |                  ++++++
+
+  error[E0412]: cannot find type `RuntimeOrigin` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:235:1
+      |
+  235 | #[derive_impl(frame_system::config_preludes::SolochainDefaultConfig as frame_system::DefaultConfig)]
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |
+      = note: this error originates in the macro `frame_system::config_preludes::SolochainDefaultConfig` which comes from the expansion of the macro `frame_support::macro_magic::forward_tokens_verbatim` (in Nightly builds, run with -Z macro-backtrace for more info)
+  help: you might have meant to use the associated type
+     --> /Users/jacopomosconi/.cargo/git/checkouts/polkadot-sdk-cff69157b985ed76/b31a0f1/substrate/frame/system/src/lib.rs:380:9
+      |
+  380 |             type Self::RuntimeOrigin = ();
+      |                  ++++++
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:235:1
+      |
+  235 | #[derive_impl(frame_system::config_preludes::SolochainDefaultConfig as frame_system::DefaultConfig)]
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |
+      = note: this error originates in the macro `frame_system::config_preludes::SolochainDefaultConfig` which comes from the expansion of the macro `frame_support::macro_magic::forward_tokens_verbatim` (in Nightly builds, run with -Z macro-backtrace for more info)
+  help: you might have meant to use the associated type
+     --> /Users/jacopomosconi/.cargo/git/checkouts/polkadot-sdk-cff69157b985ed76/b31a0f1/substrate/frame/system/src/lib.rs:385:9
+      |
+  385 |             type Self::RuntimeCall = ();
+      |                  ++++++
+
+  error[E0412]: cannot find type `RuntimeTask` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:235:1
+      |
+  235 | #[derive_impl(frame_system::config_preludes::SolochainDefaultConfig as frame_system::DefaultConfig)]
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |
+      = note: this error originates in the macro `frame_system::config_preludes::SolochainDefaultConfig` which comes from the expansion of the macro `frame_support::macro_magic::forward_tokens_verbatim` (in Nightly builds, run with -Z macro-backtrace for more info)
+  help: you might have meant to use the associated type
+     --> /Users/jacopomosconi/.cargo/git/checkouts/polkadot-sdk-cff69157b985ed76/b31a0f1/substrate/frame/system/src/lib.rs:389:9
+      |
+  389 |             type Self::RuntimeTask = ();
+      |                  ++++++
+
+  error[E0412]: cannot find type `PalletInfo` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:235:1
+      |
+  235 | #[derive_impl(frame_system::config_preludes::SolochainDefaultConfig as frame_system::DefaultConfig)]
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      |
+      = note: this error originates in the macro `frame_system::config_preludes::SolochainDefaultConfig` which comes from the expansion of the macro `frame_support::macro_magic::forward_tokens_verbatim` (in Nightly builds, run with -Z macro-backtrace for more info)
+  help: you might have meant to use the associated type
+     --> /Users/jacopomosconi/.cargo/git/checkouts/polkadot-sdk-cff69157b985ed76/b31a0f1/substrate/frame/system/src/lib.rs:393:9
+      |
+  393 |             type Self::PalletInfo = ();
+      |                  ++++++
+  help: consider importing this trait
+      |
+  15  + use frame_support::traits::PalletInfo;
+      |
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:266:30
+      |
+  266 | impl pallet_aura::Config for Runtime {
+      |                              ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:271:57
+      |
+  271 |     type SlotDuration = pallet_aura::MinimumPeriodTimesTwo<Runtime>;
+      |                                                            ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  266 | impl<Runtime> pallet_aura::Config for Runtime {
+      |     +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:274:33
+      |
+  274 | impl pallet_grandpa::Config for Runtime {
+      |                                 ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeEvent` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:275:22
+      |
+  275 |     type RuntimeEvent = RuntimeEvent;
+      |                         ^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  275 |     type RuntimeEvent = Self::RuntimeEvent;
+      |                         ++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:298:35
+      |
+  298 | impl pallet_timestamp::Config for Runtime {
+      |                                   ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:307:34
+      |
+  307 | impl pallet_balances::Config for Runtime {
+      |                                  ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeEvent` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:308:22
+      |
+  308 |     type RuntimeEvent = RuntimeEvent;
+      |                         ^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  308 |     type RuntimeEvent = Self::RuntimeEvent;
+      |                         ++++++
+
+  error[E0412]: cannot find type `RuntimeHoldReason` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:309:27
+      |
+  309 |     type RuntimeHoldReason = RuntimeHoldReason;
+      |                              ^^^^^^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  309 |     type RuntimeHoldReason = Self::RuntimeHoldReason;
+      |                              ++++++
+
+  error[E0412]: cannot find type `RuntimeFreezeReason` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:310:29
+      |
+  310 |     type RuntimeFreezeReason = RuntimeFreezeReason;
+      |                                ^^^^^^^^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  310 |     type RuntimeFreezeReason = Self::RuntimeFreezeReason;
+      |                                ++++++
+
+  error[E0412]: cannot find type `System` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:315:22
+      |
+  315 |     type AccountStore = System;
+      |                         ^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeFreezeReason` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:317:26
+      |
+  317 |     type FreezeIdentifier = RuntimeFreezeReason;
+      |                             ^^^^^^^^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  317 |     type FreezeIdentifier = Self::RuntimeFreezeReason;
+      |                             ++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:327:45
+      |
+  327 | impl pallet_transaction_payment::Config for Runtime {
+      |                                             ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeEvent` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:328:22
+      |
+  328 |     type RuntimeEvent = RuntimeEvent;
+      |                         ^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  328 |     type RuntimeEvent = Self::RuntimeEvent;
+      |                         ++++++
+
+  error[E0412]: cannot find type `Balances` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:329:45
+      |
+  84  | pub type Balance = u128;
+      | ------------------------ similarly named type alias `Balance` defined here
+  ...
+  329 |     type OnChargeTransaction = FungibleAdapter<Balances, ()>;
+      |                                                ^^^^^^^^
+      |
+  help: a type alias with a similar name exists
+      |
+  329 |     type OnChargeTransaction = FungibleAdapter<Balance, ()>;
+      |                                                ~~~~~~~
+  help: you might be missing a type parameter
+      |
+  327 | impl<Balances> pallet_transaction_payment::Config for Runtime {
+      |     ++++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:336:30
+      |
+  336 | impl pallet_sudo::Config for Runtime {
+      |                              ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeEvent` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:337:22
+      |
+  337 |     type RuntimeEvent = RuntimeEvent;
+      |                         ^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  337 |     type RuntimeEvent = Self::RuntimeEvent;
+      |                         ++++++
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:338:21
+      |
+  338 |     type RuntimeCall = RuntimeCall;
+      |                        ^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  338 |     type RuntimeCall = Self::RuntimeCall;
+      |                        ++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:342:38
+      |
+  342 | impl pallet_evm_chain_id::Config for Runtime {}
+      |                                      ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:352:32
+      |
+  352 |                 pallet_aura::Authorities::<Runtime>::get()[author_index as usize].clone();
+      |                                            ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  345 | impl<F: FindAuthor<u32>, Runtime> FindAuthor<H160> for FindAuthorTruncated<F> {
+      |                        +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:365:44
+      |
+  365 |     pub PrecompilesValue: FrontierPrecompiles<Runtime> = FrontierPrecompiles::<_>::new();
+      |                                               ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:370:29
+      |
+  370 | impl pallet_evm::Config for Runtime {
+      |                             ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `BaseFee` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:371:23
+      |
+  371 |     type FeeCalculator = BaseFee;
+      |                          ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Balances` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:378:18
+      |
+  84  | pub type Balance = u128;
+      | ------------------------ similarly named type alias `Balance` defined here
+  ...
+  378 |     type Currency = Balances;
+      |                     ^^^^^^^^ help: a type alias with a similar name exists: `Balance`
+
+  error[E0412]: cannot find type `RuntimeEvent` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:379:22
+      |
+  379 |     type RuntimeEvent = RuntimeEvent;
+      |                         ^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  379 |     type RuntimeEvent = Self::RuntimeEvent;
+      |                         ++++++
+
+  error[E0412]: cannot find type `EVMChainId` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:382:17
+      |
+  382 |     type ChainId = EVMChainId;
+      |                    ^^^^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Aura` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:387:40
+      |
+  387 |     type FindAuthor = FindAuthorTruncated<Aura>;
+      |                                           ^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  370 | impl<Aura> pallet_evm::Config for Runtime {
+      |     ++++++
+
+  error[E0412]: cannot find type `Timestamp` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:390:19
+      |
+  390 |     type Timestamp = Timestamp;
+      |                      ^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  390 |     type Timestamp = Self::Timestamp;
+      |                      ++++++
+  help: consider importing one of these items
+      |
+  15  + use sp_core::offchain::Timestamp;
+      |
+  15  + use sp_runtime::offchain::Timestamp;
+      |
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:398:34
+      |
+  398 | impl pallet_ethereum::Config for Runtime {
+      |                                  ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeEvent` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:399:22
+      |
+  399 |     type RuntimeEvent = RuntimeEvent;
+      |                         ^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  399 |     type RuntimeEvent = Self::RuntimeEvent;
+      |                         ++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:409:37
+      |
+  409 | impl pallet_dynamic_fee::Config for Runtime {
+      |                                     ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:429:34
+      |
+  429 | impl pallet_base_fee::Config for Runtime {
+      |                                  ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeEvent` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:430:22
+      |
+  430 |     type RuntimeEvent = RuntimeEvent;
+      |                         ^^^^^^^^^^^^
+      |
+  help: you might have meant to use the associated type
+      |
+  430 |     type RuntimeEvent = Self::RuntimeEvent;
+      |                         ++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:463:37
+      |
+  463 | impl pallet_manual_seal::Config for Runtime {}
+      |                                     ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:543:28
+      |
+  543 |             pallet_ethereum::Call::<Runtime>::transact { transaction }.into(),
+      |                                     ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  537 | impl<B: BlockT, Runtime> fp_rpc::ConvertTransaction<<B as BlockT>::Extrinsic> for TransactionConverter<B> {
+      |               +++++++++
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:551:47
+      |
+  551 | impl fp_self_contained::SelfContainedCall for RuntimeCall {
+      |                                               ^^^^^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:571:34
+      |
+  571 |         dispatch_info: &DispatchInfoOf<RuntimeCall>,
+      |                                        ^^^^^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  551 | impl<RuntimeCall> fp_self_contained::SelfContainedCall for RuntimeCall {
+      |     +++++++++++++
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:583:34
+      |
+  583 |         dispatch_info: &DispatchInfoOf<RuntimeCall>,
+      |                                        ^^^^^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  551 | impl<RuntimeCall> fp_self_contained::SelfContainedCall for RuntimeCall {
+      |     +++++++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:622:31
+      |
+  622 |     impl sp_api::Core<Block> for Runtime {
+      |                                  ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:636:35
+      |
+  636 |     impl sp_api::Metadata<Block> for Runtime {
+      |                                      ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:650:49
+      |
+  650 |     impl sp_block_builder::BlockBuilder<Block> for Runtime {
+      |                                                    ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:671:75
+      |
+  671 |     impl sp_transaction_pool::runtime_api::TaggedTransactionQueue<Block> for Runtime {
+      |                                                                              ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:681:49
+      |
+  681 |     impl sp_offchain::OffchainWorkerApi<Block> for Runtime {
+      |                                                    ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:687:53
+      |
+  687 |     impl sp_genesis_builder::GenesisBuilder<Block> for Runtime {
+      |                                                        ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeGenesisConfig` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:689:18
+      |
+  689 |             build_state::<RuntimeGenesisConfig>(config)
+      |                           ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  687 |     impl<RuntimeGenesisConfig> sp_genesis_builder::GenesisBuilder<Block> for Runtime {
+      |         ++++++++++++++++++++++
+
+  error[E0412]: cannot find type `RuntimeGenesisConfig` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:693:17
+      |
+  693 |             get_preset::<RuntimeGenesisConfig>(id, |_| None)
+      |                          ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  687 |     impl<RuntimeGenesisConfig> sp_genesis_builder::GenesisBuilder<Block> for Runtime {
+      |         ++++++++++++++++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:701:42
+      |
+  701 |     impl sp_session::SessionKeys<Block> for Runtime {
+      |                                             ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:713:53
+      |
+  713 |     impl sp_consensus_aura::AuraApi<Block, AuraId> for Runtime {
+      |                                                        ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:719:31
+      |
+  719 |             pallet_aura::Authorities::<Runtime>::get().into_inner()
+      |                                        ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  713 |     impl<Runtime> sp_consensus_aura::AuraApi<Block, AuraId> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:723:51
+      |
+  723 |     impl sp_consensus_grandpa::GrandpaApi<Block> for Runtime {
+      |                                                      ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:753:82
+      |
+  753 |     impl frame_system_rpc_runtime_api::AccountNonceApi<Block, AccountId, Nonce> for Runtime {
+      |                                                                                     ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:762:8
+      |
+  762 |     > for Runtime {
+      |           ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:786:48
+      |
+  786 |     impl fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |                                                   ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:788:5
+      |
+  788 |             <Runtime as pallet_evm::Config>::ChainId::get()
+      |              ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:792:44
+      |
+  792 |             let (account, _) = pallet_evm::Pallet::<Runtime>::account_basic(&address);
+      |                                                     ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:797:26
+      |
+  797 |             let (gas_price, _) = <Runtime as pallet_evm::Config>::FeeCalculator::min_gas_price();
+      |                                   ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:802:31
+      |
+  802 |             pallet_evm::AccountCodes::<Runtime>::get(address)
+      |                                        ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:806:24
+      |
+  806 |             <pallet_evm::Pallet<Runtime>>::find_author()
+      |                                 ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:812:34
+      |
+  812 |             pallet_evm::AccountStorages::<Runtime>::get(address, H256::from_slice(&tmp[..]))
+      |                                           ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:830:23
+      |
+  830 |                 let mut config = <Runtime as pallet_evm::Config>::config().clone();
+      |                                   ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:867:12
+      |
+  867 |                 match <Runtime as pallet_evm::Config>::GasWeightMapping::gas_to_weight(
+      |                        ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:877:5
+      |
+  877 |             <Runtime as pallet_evm::Config>::Runner::call(
+      |              ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:891:32
+      |
+  891 |                 config.as_ref().unwrap_or(<Runtime as pallet_evm::Config>::config()),
+      |                                            ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:909:23
+      |
+  909 |                 let mut config = <Runtime as pallet_evm::Config>::config().clone();
+      |                                   ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:946:12
+      |
+  946 |                 match <Runtime as pallet_evm::Config>::GasWeightMapping::gas_to_weight(
+      |                        ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:956:5
+      |
+  956 |             <Runtime as pallet_evm::Config>::Runner::create(
+      |              ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:969:32
+      |
+  969 |                 config.as_ref().unwrap_or(<Runtime as pallet_evm::Config>::config()),
+      |                                            ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:974:50
+      |
+  974 |             pallet_ethereum::CurrentTransactionStatuses::<Runtime>::get()
+      |                                                           ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:978:36
+      |
+  978 |             pallet_ethereum::CurrentBlock::<Runtime>::get()
+      |                                             ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:982:39
+      |
+  982 |             pallet_ethereum::CurrentReceipts::<Runtime>::get()
+      |                                                ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:991:37
+      |
+  991 |                 pallet_ethereum::CurrentBlock::<Runtime>::get(),
+      |                                                 ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:992:40
+      |
+  992 |                 pallet_ethereum::CurrentReceipts::<Runtime>::get(),
+      |                                                    ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:993:51
+      |
+  993 |                 pallet_ethereum::CurrentTransactionStatuses::<Runtime>::get()
+      |                                                               ^^^^^^^ not found in this scope
+      |
+  help: you might be missing a type parameter
+      |
+  786 |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+      |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1007:39
+       |
+  1007 |             Some(pallet_base_fee::Elasticity::<Runtime>::get())
+       |                                                ^^^^^^^ not found in this scope
+       |
+  help: you might be missing a type parameter
+       |
+  786  |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+       |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1022:37
+       |
+  1022 |                 pallet_ethereum::CurrentBlock::<Runtime>::get(),
+       |                                                 ^^^^^^^ not found in this scope
+       |
+  help: you might be missing a type parameter
+       |
+  786  |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+       |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1023:51
+       |
+  1023 |                 pallet_ethereum::CurrentTransactionStatuses::<Runtime>::get()
+       |                                                               ^^^^^^^ not found in this scope
+       |
+  help: you might be missing a type parameter
+       |
+  786  |     impl<Runtime> fp_rpc::EthereumRuntimeRPCApi<Block> for Runtime {
+       |         +++++++++
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1028:55
+       |
+  1028 |     impl fp_rpc::ConvertTransactionRuntimeApi<Block> for Runtime {
+       |                                                          ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1031:29
+       |
+  1031 |                 pallet_ethereum::Call::<Runtime>::transact { transaction }.into(),
+       |                                         ^^^^^^^ not found in this scope
+       |
+  help: you might be missing a type parameter
+       |
+  1028 |     impl<Runtime> fp_rpc::ConvertTransactionRuntimeApi<Block> for Runtime {
+       |         +++++++++
+
+  error[E0412]: cannot find type `EventRecord` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1036:84
+       |
+  1036 |     impl pallet_contracts::ContractsApi<Block, AccountId, Balance, BlockNumber, Hash, EventRecord>
+       |                                                                                       ^^^^^^^^^^^ not found in this scope
+       |
+  help: consider importing this struct
+       |
+  15   + use frame_system::EventRecord;
+       |
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1037:7
+       |
+  1037 |         for Runtime
+       |             ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `EventRecord` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1046:54
+       |
+  1046 |         ) -> pallet_contracts::ContractExecResult<Balance, EventRecord> {
+       |                                                            ^^^^^^^^^^^ not found in this scope
+       |
+  help: consider importing this struct
+       |
+  15   + use frame_system::EventRecord;
+       |
+
+  error[E0412]: cannot find type `EventRecord` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1069:72
+       |
+  1069 |         ) -> pallet_contracts::ContractInstantiateResult<AccountId, Balance, EventRecord>
+       |                                                                              ^^^^^^^^^^^ not found in this scope
+       |
+  help: consider importing this struct
+       |
+  15   + use frame_system::EventRecord;
+       |
+
+  error[E0412]: cannot find type `EventRecord` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1036:84
+       |
+  1036 |     impl pallet_contracts::ContractsApi<Block, AccountId, Balance, BlockNumber, Hash, EventRecord>
+       |                                                                                       ^^^^^^^^^^^ not found in this scope
+       |
+       = help: consider importing this struct:
+               frame_system::EventRecord
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1289:32
+       |
+  1289 | impl pallet_custom::Config for Runtime {
+       |                                ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1295:38
+       |
+  1295 | impl frame_support::traits::Contains<RuntimeCall> for AllowBalancesCall {
+       |                                      ^^^^^^^^^^^ not found in this scope
+       |
+  help: you might be missing a type parameter
+       |
+  1295 | impl<RuntimeCall> frame_support::traits::Contains<RuntimeCall> for AllowBalancesCall {
+       |     +++++++++++++
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1296:21
+       |
+  1296 |     fn contains(call: &RuntimeCall) -> bool {
+       |                        ^^^^^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1322:43
+       |
+  1322 |     pub Schedule: pallet_contracts::Schedule<Runtime> = schedule::<Runtime>();
+       |                                              ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1322:65
+       |
+  1322 |     pub Schedule: pallet_contracts::Schedule<Runtime> = schedule::<Runtime>();
+       |                                                                    ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Runtime` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1328:35
+       |
+  1328 | impl pallet_contracts::Config for Runtime {
+       |                                   ^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Timestamp` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1329:14
+       |
+  1329 |     type Time = Timestamp;
+       |                 ^^^^^^^^^ not found in this scope
+       |
+  help: consider importing one of these items
+       |
+  15   + use sp_core::offchain::Timestamp;
+       |
+  15   + use sp_runtime::offchain::Timestamp;
+       |
+
+  error[E0412]: cannot find type `RandomnessCollectiveFlip` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1330:20
+       |
+  1330 |     type Randomness = RandomnessCollectiveFlip;
+       |                       ^^^^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+  error[E0412]: cannot find type `Balances` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1331:18
+       |
+  84   | pub type Balance = u128;
+       | ------------------------ similarly named type alias `Balance` defined here
+  ...
+  1331 |     type Currency = Balances;
+       |                     ^^^^^^^^ help: a type alias with a similar name exists: `Balance`
+
+  error[E0412]: cannot find type `RuntimeEvent` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1332:22
+       |
+  1332 |     type RuntimeEvent = RuntimeEvent;
+       |                         ^^^^^^^^^^^^
+       |
+  help: you might have meant to use the associated type
+       |
+  1332 |     type RuntimeEvent = Self::RuntimeEvent;
+       |                         ++++++
+
+  error[E0412]: cannot find type `RuntimeCall` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1333:21
+       |
+  1333 |     type RuntimeCall = RuntimeCall;
+       |                        ^^^^^^^^^^^
+       |
+  help: you might have meant to use the associated type
+       |
+  1333 |     type RuntimeCall = Self::RuntimeCall;
+       |                        ++++++
+
+  error[E0412]: cannot find type `RuntimeHoldReason` in this scope
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1365:27
+       |
+  1365 |     type RuntimeHoldReason = RuntimeHoldReason;
+       |                              ^^^^^^^^^^^^^^^^^
+       |
+  help: you might have meant to use the associated type
+       |
+  1365 |     type RuntimeHoldReason = Self::RuntimeHoldReason;
+       |                              ++++++
+
+  warning: unused import: `boxed::Box`
+    --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:15:13
+     |
+  15 | use alloc::{boxed::Box, vec, vec::Vec};
+     |             ^^^^^^^^^^
+     |
+     = note: `#[warn(unused_imports)]` on by default
+
+  error[E0152]: duplicate lang item in crate `sp_io` (which `frame_support` depends on): `panic_impl`.
+    |
+    = note: the lang item is first defined in crate `sp_io` (which `frontier_template_runtime` depends on)
+    = note: first definition in `sp_io` loaded from /Users/jacopomosconi/Desktop/frontier/target/release/wbuild/frontier-template-runtime/target/wasm32-unknown-unknown/release/deps/libsp_io-34c4333fc6a794c4.rmeta
+    = note: second definition in `sp_io` loaded from /Users/jacopomosconi/Desktop/frontier/target/release/wbuild/frontier-template-runtime/target/wasm32-unknown-unknown/release/deps/libsp_io-0b811ec2a8f11275.rmeta
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeCall`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:556:4
+      |
+  556 |             RuntimeCall::Ethereum(call) => call.is_self_contained(),
+      |             ^^^^^^^^^^^ use of undeclared type `RuntimeCall`
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeCall`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:563:4
+      |
+  563 |             RuntimeCall::Ethereum(call) => call.check_self_contained(),
+      |             ^^^^^^^^^^^ use of undeclared type `RuntimeCall`
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeCall`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:575:4
+      |
+  575 |             RuntimeCall::Ethereum(call) => call.validate_self_contained(info, dispatch_info, len),
+      |             ^^^^^^^^^^^ use of undeclared type `RuntimeCall`
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeCall`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:587:4
+      |
+  587 |             RuntimeCall::Ethereum(call) => {
+      |             ^^^^^^^^^^^ use of undeclared type `RuntimeCall`
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeCall`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:599:11
+      |
+  599 |             call @ RuntimeCall::Ethereum(pallet_ethereum::Call::transact { .. }) => {
+      |                    ^^^^^^^^^^^ use of undeclared type `RuntimeCall`
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeOrigin`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:600:24
+      |
+  600 |                 Some(call.dispatch(RuntimeOrigin::from(
+      |                                    ^^^^^^^^^^^^^ use of undeclared type `RuntimeOrigin`
+
+  error[E0433]: failed to resolve: use of undeclared type `Runtime`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:638:24
+      |
+  638 |             OpaqueMetadata::new(Runtime::metadata().into())
+      |                                 ^^^^^^^ use of undeclared type `Runtime`
+
+  error[E0433]: failed to resolve: use of undeclared type `Runtime`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:642:4
+      |
+  642 |             Runtime::metadata_at_version(version)
+      |             ^^^^^^^ use of undeclared type `Runtime`
+
+  error[E0433]: failed to resolve: use of undeclared type `Runtime`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:646:4
+      |
+  646 |             Runtime::metadata_versions()
+      |             ^^^^^^^ use of undeclared type `Runtime`
+
+  error[E0433]: failed to resolve: use of undeclared type `Aura`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:715:49
+      |
+  715 |             sp_consensus_aura::SlotDuration::from_millis(Aura::slot_duration())
+      |                                                          ^^^^ use of undeclared type `Aura`
+
+  error[E0433]: failed to resolve: use of undeclared type `Grandpa`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:725:4
+      |
+  725 |             Grandpa::grandpa_authorities()
+      |             ^^^^^^^
+      |             |
+      |             use of undeclared type `Grandpa`
+      |             help: a type alias with a similar name exists: `GrandpaId`
+
+  error[E0433]: failed to resolve: use of undeclared type `Grandpa`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:729:4
+      |
+  729 |             Grandpa::current_set_id()
+      |             ^^^^^^^
+      |             |
+      |             use of undeclared type `Grandpa`
+      |             help: a type alias with a similar name exists: `GrandpaId`
+
+  error[E0433]: failed to resolve: use of undeclared type `System`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:755:4
+      |
+  755 |             System::account_nonce(account)
+      |             ^^^^^^ use of undeclared type `System`
+
+  error[E0433]: failed to resolve: use of undeclared type `TransactionPayment`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:767:4
+      |
+  767 |             TransactionPayment::query_info(uxt, len)
+      |             ^^^^^^^^^^^^^^^^^^
+      |             |
+      |             use of undeclared type `TransactionPayment`
+      |             help: a type alias with a similar name exists: `TransactionValidity`
+
+  error[E0433]: failed to resolve: use of undeclared type `TransactionPayment`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:774:4
+      |
+  774 |             TransactionPayment::query_fee_details(uxt, len)
+      |             ^^^^^^^^^^^^^^^^^^
+      |             |
+      |             use of undeclared type `TransactionPayment`
+      |             help: a type alias with a similar name exists: `TransactionValidity`
+
+  error[E0433]: failed to resolve: use of undeclared type `TransactionPayment`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:778:4
+      |
+  778 |             TransactionPayment::weight_to_fee(weight)
+      |             ^^^^^^^^^^^^^^^^^^
+      |             |
+      |             use of undeclared type `TransactionPayment`
+      |             help: a type alias with a similar name exists: `TransactionValidity`
+
+  error[E0433]: failed to resolve: use of undeclared type `TransactionPayment`
+     --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:782:4
+      |
+  782 |             TransactionPayment::length_to_fee(length)
+      |             ^^^^^^^^^^^^^^^^^^
+      |             |
+      |             use of undeclared type `TransactionPayment`
+      |             help: a type alias with a similar name exists: `TransactionValidity`
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeCall`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1001:5
+       |
+  1001 |                 RuntimeCall::Ethereum(transact { transaction }) => Some(transaction),
+       |                 ^^^^^^^^^^^ use of undeclared type `RuntimeCall`
+
+  error[E0433]: failed to resolve: use of undeclared type `Ethereum`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1019:4
+       |
+  1019 |             Ethereum::on_finalize(System::block_number() + 1);
+       |             ^^^^^^^^ use of undeclared type `Ethereum`
+
+  error[E0433]: failed to resolve: use of undeclared type `System`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1019:26
+       |
+  1019 |             Ethereum::on_finalize(System::block_number() + 1);
+       |                                   ^^^^^^ use of undeclared type `System`
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeBlockWeights`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1047:40
+       |
+  1047 |             let gas_limit = gas_limit.unwrap_or(RuntimeBlockWeights::get().max_block);
+       |                                                 ^^^^^^^^^^^^^^^^^^^
+       |                                                 |
+       |                                                 use of undeclared type `RuntimeBlockWeights`
+       |                                                 help: a struct with a similar name exists: `RuntimeDbWeight`
+
+  error[E0433]: failed to resolve: use of undeclared type `Contracts`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1048:4
+       |
+  1048 |             Contracts::bare_call(
+       |             ^^^^^^^^^ use of undeclared type `Contracts`
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeBlockWeights`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1071:40
+       |
+  1071 |             let gas_limit = gas_limit.unwrap_or(RuntimeBlockWeights::get().max_block);
+       |                                                 ^^^^^^^^^^^^^^^^^^^
+       |                                                 |
+       |                                                 use of undeclared type `RuntimeBlockWeights`
+       |                                                 help: a struct with a similar name exists: `RuntimeDbWeight`
+
+  error[E0433]: failed to resolve: use of undeclared type `Contracts`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1072:4
+       |
+  1072 |             Contracts::bare_instantiate(
+       |             ^^^^^^^^^ use of undeclared type `Contracts`
+
+  error[E0433]: failed to resolve: use of undeclared type `Contracts`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1092:4
+       |
+  1092 |             Contracts::bare_upload_code(origin, code, storage_deposit_limit, determinism)
+       |             ^^^^^^^^^ use of undeclared type `Contracts`
+
+  error[E0433]: failed to resolve: use of undeclared type `Contracts`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1099:4
+       |
+  1099 |             Contracts::get_storage(address, key)
+       |             ^^^^^^^^^ use of undeclared type `Contracts`
+
+  error[E0433]: failed to resolve: use of undeclared type `RuntimeCall`
+      --> /Users/jacopomosconi/Desktop/frontier/template/runtime/src/lib.rs:1297:18
+       |
+  1297 |         matches!(call, RuntimeCall::Balances(BalancesCall::transfer_allow_death { .. }))
+       |                        ^^^^^^^^^^^ use of undeclared type `RuntimeCall`
+
+  Some errors have detailed explanations: E0152, E0412, E0433.
+  For more information about an error, try `rustc --explain E0152`.
+  warning: `frontier-template-runtime` (lib) generated 1 warning
+  error: could not compile `frontier-template-runtime` (lib) due to 150 previous errors; 1 warning emitted
