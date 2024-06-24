@@ -1171,15 +1171,15 @@ pub mod pallet_custom {
   use frame_support::pallet_prelude::{Hooks, DispatchResult, PhantomData, Encode, Decode};
 	use frame_system::pallet_prelude::BlockNumberFor;
 	use frame_system::pallet_prelude::OriginFor;
-	use sp_runtime::offchain::storage::StorageValueRef;
+	// use sp_runtime::offchain::storage::StorageValueRef;
 	use sp_runtime::offchain::http;
 	use sp_runtime::offchain::Duration;
 	use sp_io::offchain_index;
 	use sp_version::sp_std::str;
 	use sp_version::sp_std::vec::Vec;
 
-	const ONCHAIN_TX_KEY: &[u8] = b"pallet_custom::indexing1";
-
+	const ONCHAIN_TX_KEY: &[u8] = b"pallet_custom::indexing";
+	
 	#[derive(Encode, Decode, Default)]
 	struct IndexingData(Vec<u8>, u64);
 
@@ -1240,8 +1240,29 @@ pub mod pallet_custom {
 		}
 
 		fn execute_wasm(data: i32, wasm: Vec<u8>) -> i32 {
-			// TODO..
-			1
+			log::info!("🇮🇹 execute_wasm | Data is {:?}", data);
+
+			let module = wasmi::Module::from_buffer(&wasm).expect("🇮🇹 execute_wasm | Error loading wasm module");
+			let instance = wasmi::ModuleInstance::new(&module, &wasmi::ImportsBuilder::default())
+				.expect("🇮🇹 execute_wasm | Error instantiating wasm module")
+				.assert_no_start();
+
+			let result = instance.invoke_export(
+				"add_one",
+				&[wasmi::RuntimeValue::I32(data)],
+				&mut wasmi::NopExternals,
+			).expect("Failed to execute WASM function");
+
+			match result {
+        Some(wasmi::RuntimeValue::I32(value)) => {
+					log::info!("🇮🇹 execute_wasm | Result is {:?}", value);
+					return value;
+        },
+        _ => {
+					log::info!("🇮🇹 execute_wasm | Error executing wasm");
+					return 0;
+				}
+    	}
 		}
 	}
 
@@ -1266,29 +1287,29 @@ pub mod pallet_custom {
 		}
 
 		fn offchain_worker(block_number: BlockNumberFor<T> ) {
-			log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
+			// log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
 
-			let key = Self::derived_key(block_number);
-			let storage_ref = StorageValueRef::persistent(&key);
+			// let key = Self::derived_key(block_number);
+			// let storage_ref = StorageValueRef::persistent(&key);
 
-			if let Ok(Some(data)) = storage_ref.get::<IndexingData>() {
-				log::info!("🇮🇹 offchain_worker | Local storage data: {:?}, {:?}", str::from_utf8(&data.0).unwrap_or("error"), data.1);
+			// if let Ok(Some(data)) = storage_ref.get::<IndexingData>() {
+			// 	log::info!("🇮🇹 offchain_worker | Local storage data: {:?}, {:?}", str::from_utf8(&data.0).unwrap_or("error"), data.1);
 
-				// download wasm
-				let wasm = match Self::download_wasm() {
-					Ok(wasm) => wasm,
-					Err(e) => {
-						log::info!("🇮🇹 offchain_worker | Error downloading wasm: {:?}", e);
-						return;
-					}
-				};
+			// 	// download wasm
+			// 	let wasm = match Self::download_wasm() {
+			// 		Ok(wasm) => wasm,
+			// 		Err(e) => {
+			// 			log::info!("🇮🇹 offchain_worker | Error downloading wasm: {:?}", e);
+			// 			return;
+			// 		}
+			// 	};
 
-				// execute wasm
-				let result = Self::execute_wasm(data.1 as i32, wasm);
-				log::info!("🇮🇹 offchain_worker | Wasm result: {:?}", result);
-			} else {
-				log::info!("🇮🇹 offchain_worker | Error reading from local storage.");
-			}
+			// 	// execute wasm
+			// 	let result = Self::execute_wasm(data.1 as i32, wasm);
+			// 	log::info!("🇮🇹 offchain_worker | Wasm result: {:?}", result);
+			// } else {
+			// 	log::info!("🇮🇹 offchain_worker | Error reading from local storage.");
+			// }
 		}
 	}
 }
