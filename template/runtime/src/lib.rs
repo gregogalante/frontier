@@ -1077,7 +1077,7 @@ pub mod pallet_custom {
 	use sp_version::sp_std::vec::Vec;
 
 	const ONCHAIN_TX_KEY: &[u8] = b"pallet_custom::indexing";
-
+	
 	#[derive(Encode, Decode, Default)]
 	struct IndexingData(Vec<u8>, u64);
 
@@ -1137,10 +1137,30 @@ pub mod pallet_custom {
 			}
 		}
 
-		fn execute_wasm(data: i32, _wasm: Vec<u8>) -> i32 {
+		fn execute_wasm(data: i32, wasm: Vec<u8>) -> i32 {
 			log::info!("🇮🇹 execute_wasm | Data is {:?}", data);
 
-			1
+			let module = wasmi::Module::from_buffer(&wasm).expect("🇮🇹 execute_wasm | Error loading wasm module");
+			let instance = wasmi::ModuleInstance::new(&module, &wasmi::ImportsBuilder::default())
+				.expect("🇮🇹 execute_wasm | Error instantiating wasm module")
+				.assert_no_start();
+
+			let result = instance.invoke_export(
+				"add_one",
+				&[wasmi::RuntimeValue::I32(data)],
+				&mut wasmi::NopExternals,
+			).expect("Failed to execute WASM function");
+
+			match result {
+        Some(wasmi::RuntimeValue::I32(value)) => {
+					log::info!("🇮🇹 execute_wasm | Result is {:?}", value);
+					return value;
+        },
+        _ => {
+					log::info!("🇮🇹 execute_wasm | Error executing wasm");
+					return 0;
+				}
+    	}
 		}
 	}
 

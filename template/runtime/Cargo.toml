@@ -16,6 +16,7 @@ scale-codec = { package = "parity-scale-codec", workspace = true }
 scale-info = { workspace = true }
 log = { workspace = true }
 hex = { workspace = true }
+wasmi = { version = "0.11", default-features = false }
 
 # Substrate
 sp-api = { workspace = true }
