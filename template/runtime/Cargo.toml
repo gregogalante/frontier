@@ -12,6 +12,7 @@ repository = { workspace = true }
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
+
 scale-codec = { package = "parity-scale-codec", workspace = true }
 scale-info = { workspace = true }
 log = { workspace = true }
@@ -46,6 +47,7 @@ pallet-timestamp = { workspace = true }
 pallet-transaction-payment = { workspace = true }
 pallet-transaction-payment-rpc-runtime-api = { workspace = true }
 pallet-contracts = { workspace = true }
+pallet-assets = { workspace = true }
 pallet-insecure-randomness-collective-flip = { workspace = true }
 
 # Frontier
@@ -102,6 +104,7 @@ std = [
 	"pallet-transaction-payment/std",
 	"pallet-transaction-payment-rpc-runtime-api/std",
 	"pallet-contracts/std",
+	"pallet-assets/std",
 	"pallet-insecure-randomness-collective-flip/std",
 	# Frontier
 	"fp-account/std",
