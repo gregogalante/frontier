@@ -80,7 +80,7 @@ Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer]
 --chain local \
 --alice \
 --port 30333 \
---rpc-port 9945 \
+--rpc-port 9944 \
 --node-key 0000000000000000000000000000000000000000000000000000000000000001 \
 --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" \
 --validator
@@ -96,7 +96,7 @@ Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer]
 --chain local \
 --bob \
 --port 30334 \
---rpc-port 9946 \
+--rpc-port 9945 \
 --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" \
 --validator \
 --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
@@ -111,7 +111,7 @@ mkdir -p /tmp/bob/chains/local_testnet/network
 
 **View chain from block explorer:**
 
-Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9945#/explorer](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9945#/explorer)
+Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer)
 
 **Run all in one command:**
 
