@@ -43,6 +43,7 @@ use frame_support::{
 	parameter_types,
 	traits::{ConstBool, ConstU32, ConstU64, ConstU8, FindAuthor, OnFinalize, OnTimestampSet},
 	weights::{constants::WEIGHT_REF_TIME_PER_MILLIS, IdentityFee, Weight},
+	dispatch::DispatchClass,
 };
 use pallet_transaction_payment::{ConstFeeMultiplier, FungibleAdapter};
 use sp_genesis_builder::PresetId;
@@ -208,6 +209,7 @@ parameter_types! {
 		::with_sensible_defaults(MAXIMUM_BLOCK_WEIGHT, NORMAL_DISPATCH_RATIO);
 	pub BlockLength: frame_system::limits::BlockLength = frame_system::limits::BlockLength
 		::max_with_normal_ratio(MAXIMUM_BLOCK_LENGTH, NORMAL_DISPATCH_RATIO);
+
 	pub const SS58Prefix: u8 = 42;
 }
 
@@ -497,6 +499,15 @@ mod runtime {
 
 	#[runtime::pallet_index(12)]
 	pub type PalletCustom = pallet_custom;
+
+	#[runtime::pallet_index(13)]
+	pub type Contracts = pallet_contracts;
+
+	#[runtime::pallet_index(14)]
+	pub type RandomnessCollectiveFlip = pallet_insecure_randomness_collective_flip;
+
+	#[runtime::pallet_index(15)]
+	pub type Assets = pallet_assets;
 }
 
 #[derive(Clone)]
@@ -1058,6 +1069,120 @@ mod tests {
 			.get(frame_support::dispatch::DispatchClass::Normal)
 			.base_extrinsic;
 		assert!(base_extrinsic.ref_time() <= min_ethereum_transaction_weight.ref_time());
+	}
+}
+
+// PALLET CONTRACTS INTEGRATION
+////////////////////////////////////////////////////////////////////////////////
+
+mod assets_config;
+mod contracts_config;
+
+impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
+
+/// We assume that ~10% of the block weight is consumed by `on_initialize` handlers.
+/// This is used to limit the maximal weight of a single extrinsic.
+const AVERAGE_ON_INITIALIZE_RATIO: Perbill = Perbill::from_percent(10);
+
+type EventRecord = frame_system::EventRecord<
+	<Runtime as frame_system::Config>::RuntimeEvent,
+	<Runtime as frame_system::Config>::Hash,
+>;
+
+parameter_types! {
+	pub RuntimeBlockLength: BlockLength =
+		BlockLength::max_with_normal_ratio(5 * 1024 * 1024, NORMAL_DISPATCH_RATIO);
+	pub RuntimeBlockWeights: BlockWeights = BlockWeights::builder()
+		.base_block(Weight::get())
+		.for_class(DispatchClass::all(), |weights| {
+			weights.base_extrinsic = Weight::get();
+		})
+		.for_class(DispatchClass::Normal, |weights| {
+			weights.max_total = Some(NORMAL_DISPATCH_RATIO * MAXIMUM_BLOCK_WEIGHT);
+		})
+		.for_class(DispatchClass::Operational, |weights| {
+			weights.max_total = Some(MAXIMUM_BLOCK_WEIGHT);
+			// Operational transactions have some extra reserved space, so that they
+			// are included even if block reached `MAXIMUM_BLOCK_WEIGHT`.
+			weights.reserved = Some(
+				MAXIMUM_BLOCK_WEIGHT - NORMAL_DISPATCH_RATIO * MAXIMUM_BLOCK_WEIGHT
+			);
+		})
+		.avg_block_initialization(AVERAGE_ON_INITIALIZE_RATIO)
+		.build_or_panic();
+}
+
+impl pallet_contracts::ContractsApi<Block, AccountId, Balance, BlockNumber, Hash, EventRecord> for Runtime
+{
+	fn call(
+		origin: AccountId,
+		dest: AccountId,
+		value: Balance,
+		gas_limit: Option<Weight>,
+		storage_deposit_limit: Option<Balance>,
+		input_data: Vec<u8>,
+	) -> pallet_contracts::ContractExecResult<Balance, EventRecord> {
+		let gas_limit = gas_limit.unwrap_or(RuntimeBlockWeights::get().max_block);
+		Contracts::bare_call(
+			origin,
+			dest,
+			value,
+			gas_limit,
+			storage_deposit_limit,
+			input_data,
+			pallet_contracts::DebugInfo::UnsafeDebug,
+			pallet_contracts::CollectEvents::UnsafeCollect,
+			pallet_contracts::Determinism::Enforced,
+		)
+	}
+
+	fn instantiate(
+		origin: AccountId,
+		value: Balance,
+		gas_limit: Option<Weight>,
+		storage_deposit_limit: Option<Balance>,
+		code: pallet_contracts::Code<Hash>,
+		data: Vec<u8>,
+		salt: Vec<u8>,
+	) -> pallet_contracts::ContractInstantiateResult<AccountId, Balance, EventRecord>
+	{
+		let gas_limit = gas_limit.unwrap_or(RuntimeBlockWeights::get().max_block);
+		Contracts::bare_instantiate(
+			origin,
+			value,
+			gas_limit,
+			storage_deposit_limit,
+			code,
+			data,
+			salt,
+			pallet_contracts::DebugInfo::UnsafeDebug,
+			pallet_contracts::CollectEvents::UnsafeCollect,
+		)
+	}
+
+	fn upload_code(
+		origin: AccountId,
+		code: Vec<u8>,
+		storage_deposit_limit: Option<Balance>,
+		determinism: pallet_contracts::Determinism,
+	) -> pallet_contracts::CodeUploadResult<Hash, Balance>
+	{
+		Contracts::bare_upload_code(
+			origin,
+			code,
+			storage_deposit_limit,
+			determinism,
+		)
+	}
+
+	fn get_storage(
+		address: AccountId,
+		key: Vec<u8>,
+	) -> pallet_contracts::GetStorageResult {
+		Contracts::get_storage(
+			address,
+			key
+		)
 	}
 }
 
