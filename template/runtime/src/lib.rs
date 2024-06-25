@@ -139,6 +139,7 @@ pub type Executive = frame_executive::Executive<
 	frame_system::ChainContext<Runtime>,
 	Runtime,
 	AllPalletsWithSystem,
+	pallet_contracts::Migration<Runtime>,
 >;
 
 // Time is measured by number of blocks.
@@ -501,13 +502,13 @@ mod runtime {
 	pub type Custom = pallet_custom;
 
 	#[runtime::pallet_index(13)]
-	pub type Assets = pallet_assets;
-
-	#[runtime::pallet_index(14)]
 	pub type RandomnessCollectiveFlip = pallet_insecure_randomness_collective_flip;
 
-	#[runtime::pallet_index(15)]
+	#[runtime::pallet_index(14)]
 	pub type Contracts = pallet_contracts;
+
+	#[runtime::pallet_index(15)]
+	pub type Assets = pallet_assets;
 }
 
 #[derive(Clone)]
@@ -1240,6 +1241,7 @@ fn schedule<T: pallet_contracts::Config>() -> pallet_contracts::Schedule<T> {
 pub enum AllowBalancesCall {}
 impl frame_support::traits::Contains<RuntimeCall> for AllowBalancesCall {
 	fn contains(call: &RuntimeCall) -> bool {
+		log::info!("🇮🇹 AllowBalancesCall contains | call is {:?}", call);
 		matches!(call, RuntimeCall::Balances(BalancesCall::transfer_allow_death { .. }))
 	}
 }
