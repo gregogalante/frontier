@@ -49,6 +49,7 @@ pallet-transaction-payment-rpc-runtime-api = { workspace = true }
 pallet-utility = { workspace = true }
 pallet-assets = { workspace = true }
 pallet-contracts = { workspace = true }
+pallet-insecure-randomness-collective-flip = { workspace = true }
 
 # Frontier
 fp-account = { workspace = true, features = ["serde"] }
@@ -106,6 +107,7 @@ std = [
 	"pallet-utility/std",
 	"pallet-assets/std",
 	"pallet-contracts/std",
+	"pallet-insecure-randomness-collective-flip/std",
 	# Frontier
 	"fp-account/std",
 	"fp-evm/std",
@@ -131,4 +133,7 @@ runtime-benchmarks = [
 	"pallet-sudo/runtime-benchmarks",
 	"pallet-ethereum/runtime-benchmarks",
 	"pallet-evm/runtime-benchmarks",
+	"pallet-assets/runtime-benchmarks",
+	"pallet-contracts/runtime-benchmarks",
+	"pallet-utility/runtime-benchmarks",
 ]

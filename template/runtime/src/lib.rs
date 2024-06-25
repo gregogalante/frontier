@@ -202,6 +202,7 @@ pub const MAXIMUM_BLOCK_WEIGHT: Weight = Weight::from_parts(
 );
 pub const MAXIMUM_BLOCK_LENGTH: u32 = 5 * 1024 * 1024;
 
+
 parameter_types! {
 	pub const Version: RuntimeVersion = VERSION;
 	pub const BlockHashCount: BlockNumber = 256;
@@ -502,8 +503,11 @@ mod runtime {
 	#[runtime::pallet_index(13)]
 	pub type Assets = pallet_assets;
 
-	// #[runtime::pallet_index(14)]
-	// pub type Contracts = pallet_contracts;
+	#[runtime::pallet_index(14)]
+	pub type RandomnessCollectiveFlip = pallet_insecure_randomness_collective_flip;
+
+	#[runtime::pallet_index(15)]
+	pub type Contracts = pallet_contracts;
 }
 
 #[derive(Clone)]
@@ -598,6 +602,11 @@ mod benches {
 		[pallet_evm, EVM]
 	);
 }
+
+type EventRecord = frame_system::EventRecord<
+	<Runtime as frame_system::Config>::RuntimeEvent,
+	<Runtime as frame_system::Config>::Hash,
+>;
 
 impl_runtime_apis! {
 	impl sp_api::Core<Block> for Runtime {
@@ -1053,6 +1062,103 @@ impl_runtime_apis! {
 			Ok(batches)
 		}
 	}
+
+	impl pallet_contracts::ContractsApi<Block, AccountId, Balance, BlockNumber, Hash, EventRecord> for Runtime
+	{
+		fn call(
+			origin: AccountId,
+			dest: AccountId,
+			value: Balance,
+			gas_limit: Option<Weight>,
+			storage_deposit_limit: Option<Balance>,
+			input_data: Vec<u8>,
+		) -> pallet_contracts::ContractExecResult<Balance, EventRecord> {
+			let gas_limit = gas_limit.unwrap_or(BlockWeights::get().max_block);
+			log::info!(
+				target: "runtime::contracts",
+				"Call from {:?} to {:?} with value {:?} and gas limit {:?}",
+				origin,
+				dest,
+				value,
+				gas_limit,
+			);
+			Contracts::bare_call(
+				origin,
+				dest,
+				value,
+				gas_limit,
+				storage_deposit_limit,
+				input_data,
+				CONTRACTS_DEBUG_OUTPUT,
+				CONTRACTS_EVENTS,
+				pallet_contracts::Determinism::Enforced,
+			)
+		}
+
+		fn instantiate(
+			origin: AccountId,
+			value: Balance,
+			gas_limit: Option<Weight>,
+			storage_deposit_limit: Option<Balance>,
+			code: pallet_contracts::Code<Hash>,
+			data: Vec<u8>,
+			salt: Vec<u8>,
+		) -> pallet_contracts::ContractInstantiateResult<AccountId, Balance, EventRecord>
+		{
+			let gas_limit = gas_limit.unwrap_or(BlockWeights::get().max_block);
+			log::info!(
+				"🇮🇹 Instantiate from {:?} with value {:?} and gas limit {:?}",
+				origin,
+				value,
+				gas_limit,
+			);
+			let bare_instantiate = Contracts::bare_instantiate(
+				origin,
+				value,
+				gas_limit,
+				storage_deposit_limit,
+				code,
+				data,
+				salt,
+				CONTRACTS_DEBUG_OUTPUT,
+				CONTRACTS_EVENTS,
+			);
+
+			log::info!(
+				"🇮🇹 Instantiate result: {:?}",
+				bare_instantiate
+			);
+
+			bare_instantiate
+		}
+
+		fn upload_code(
+			origin: AccountId,
+			code: Vec<u8>,
+			storage_deposit_limit: Option<Balance>,
+			determinism: pallet_contracts::Determinism,
+		) -> pallet_contracts::CodeUploadResult<Hash, Balance>
+		{
+			log::info!(
+				"🇮🇹 Upload code from {:?} with storage deposit limit {:?}",
+				origin,
+				storage_deposit_limit,
+			);
+			Contracts::bare_upload_code(origin, code, storage_deposit_limit, determinism)
+		}
+
+		fn get_storage(
+			address: AccountId,
+			key: Vec<u8>,
+		) -> pallet_contracts::GetStorageResult {
+			log::info!(
+				"🇮🇹 Get storage from {:?} with key {:?}",
+				address,
+				key,
+			);
+			Contracts::get_storage(address, key)
+		}
+	}
 }
 
 #[cfg(test)]
@@ -1104,10 +1210,100 @@ impl pallet_assets::Config for Runtime {
 	type CallbackHandle = ();
 }
 
+// RANDOMNESS COLLECTIVE FLIP PALLET
+////////////////////////////////////////////////////////////////////////////////
+
+impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
+
 // CONTRACTS PALLET
 ////////////////////////////////////////////////////////////////////////////////
 
-// impl pallet_contracts::Config for Runtime {}
+const CONTRACTS_DEBUG_OUTPUT: pallet_contracts::DebugInfo = pallet_contracts::DebugInfo::UnsafeDebug;
+const CONTRACTS_EVENTS: pallet_contracts::CollectEvents = pallet_contracts::CollectEvents::UnsafeCollect;
+const UNIT: Balance = 1_000_000_000_000;
+const MILLIUNIT: Balance = 1_000_000_000;
+
+const fn deposit(items: u32, bytes: u32) -> Balance {
+	(items as Balance * UNIT + (bytes as Balance) * (5 * MILLIUNIT / 100)) / 10
+}
+
+fn schedule<T: pallet_contracts::Config>() -> pallet_contracts::Schedule<T> {
+	pallet_contracts::Schedule {
+		limits: pallet_contracts::Limits {
+			runtime_memory: 1024 * 1024 * 1024,
+			..Default::default()
+		},
+		..Default::default()
+	}
+}
+
+pub enum AllowBalancesCall {}
+impl frame_support::traits::Contains<RuntimeCall> for AllowBalancesCall {
+	fn contains(call: &RuntimeCall) -> bool {
+		matches!(call, RuntimeCall::Balances(BalancesCall::transfer_allow_death { .. }))
+	}
+}
+
+parameter_types! {
+	pub const DepositPerItem: Balance = deposit(1, 0);
+	pub const DepositPerByte: Balance = deposit(0, 1);
+	pub Schedule: pallet_contracts::Schedule<Runtime> = schedule::<Runtime>();
+	pub const DefaultDepositLimit: Balance = deposit(1024, 1024 * 1024);
+	pub const CodeHashLockupDepositPercent: Perbill = Perbill::from_percent(0);
+	pub const MaxDelegateDependencies: u32 = 32;
+}
+
+impl pallet_contracts::Config for Runtime {
+	type Time = Timestamp;
+	type Randomness = RandomnessCollectiveFlip;
+	type Currency = Balances;
+	type RuntimeEvent = RuntimeEvent;
+	type RuntimeCall = RuntimeCall;
+
+	/// The safest default is to allow no calls at all.
+	///
+	/// Runtimes should whitelist dispatchables that are allowed to be called from contracts
+	/// and make sure they are stable. Dispatchables exposed to contracts are not allowed to
+	/// change because that would break already deployed contracts. The `RuntimeCall` structure
+	/// itself is not allowed to change the indices of existing pallets, too.
+	type CallFilter = AllowBalancesCall;
+	type DepositPerItem = DepositPerItem;
+	type DepositPerByte = DepositPerByte;
+	type CallStack = [pallet_contracts::Frame<Self>; 23];
+	type WeightPrice = pallet_transaction_payment::Pallet<Self>;
+	type WeightInfo = pallet_contracts::weights::SubstrateWeight<Self>;
+	type ChainExtension = ();
+	type Schedule = Schedule;
+	type AddressGenerator = pallet_contracts::DefaultAddressGenerator;
+	// This node is geared towards development and testing of contracts.
+	// We decided to increase the default allowed contract size for this
+	// reason (the default is `128 * 1024`).
+	//
+	// Our reasoning is that the error code `CodeTooLarge` is thrown
+	// if a too-large contract is uploaded. We noticed that it poses
+	// less friction during development when the requirement here is
+	// just more lax.
+	type MaxCodeLen = ConstU32<{ 256 * 1024 }>;
+	type DefaultDepositLimit = DefaultDepositLimit;
+	type MaxStorageKeyLen = ConstU32<128>;
+	type MaxDebugBufferLen = ConstU32<{ 2 * 1024 * 1024 }>;
+	type UnsafeUnstableInterface = ConstBool<true>;
+	type CodeHashLockupDepositPercent = CodeHashLockupDepositPercent;
+	type MaxDelegateDependencies = MaxDelegateDependencies;
+	type RuntimeHoldReason = RuntimeHoldReason;
+
+	type Environment = ();
+	type Debug = ();
+	type ApiVersion = ();
+	type Migrations = ();
+	#[cfg(feature = "parachain")]
+	type Xcm = pallet_xcm::Pallet<Self>;
+	#[cfg(not(feature = "parachain"))]
+	type Xcm = ();
+
+	type UploadOrigin = EnsureSigned<Self::AccountId>;
+	type InstantiateOrigin = EnsureSigned<Self::AccountId>;
+}
 
 // CUSTOM PALLET
 ////////////////////////////////////////////////////////////////////////////////
@@ -1214,49 +1410,49 @@ pub mod pallet_custom {
 
 	#[pallet::hooks]
 	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
-		fn on_finalize(block_number: BlockNumberFor<T>) {
-			log::info!("🇮🇹 on_finalize | Block number is {:?}", block_number);
-			let block_hash = frame_system::Pallet::<T>::block_hash(block_number);
-			log::info!("🇮🇹 on_finalize | Block hash is {:?}", block_hash);
-			// get the total number of transactions in the block
-			let total_block_transactions_count = frame_system::Pallet::<T>::extrinsic_count();
-			log::info!("🇮🇹 on_finalize | Extrinsic count is {:?}", total_block_transactions_count);
-			// loop through all the transactions in the block, for each transaction, get the transaction data (nonce, address, value, data, gas_limit, gas_price, signature, etc)
-			for i in 0..total_block_transactions_count {
-				// get the transaction data
-				let extrinsic_data = frame_system::Pallet::<T>::extrinsic_data(i);
-				log::info!("🇮🇹 on_finalize | Extrinsic data is {:?}", extrinsic_data);
-				// get the transaction data hex
-				let extrinsic_data_hex = hex::encode(extrinsic_data.clone());
-				log::info!("🇮🇹 on_finalize | Extrinsic data hex is {:?}", extrinsic_data_hex);
-			}
-		}
+		// fn on_finalize(block_number: BlockNumberFor<T>) {
+		// 	log::info!("🇮🇹 on_finalize | Block number is {:?}", block_number);
+		// 	let block_hash = frame_system::Pallet::<T>::block_hash(block_number);
+		// 	log::info!("🇮🇹 on_finalize | Block hash is {:?}", block_hash);
+		// 	// get the total number of transactions in the block
+		// 	let total_block_transactions_count = frame_system::Pallet::<T>::extrinsic_count();
+		// 	log::info!("🇮🇹 on_finalize | Extrinsic count is {:?}", total_block_transactions_count);
+		// 	// loop through all the transactions in the block, for each transaction, get the transaction data (nonce, address, value, data, gas_limit, gas_price, signature, etc)
+		// 	for i in 0..total_block_transactions_count {
+		// 		// get the transaction data
+		// 		let extrinsic_data = frame_system::Pallet::<T>::extrinsic_data(i);
+		// 		log::info!("🇮🇹 on_finalize | Extrinsic data is {:?}", extrinsic_data);
+		// 		// get the transaction data hex
+		// 		let extrinsic_data_hex = hex::encode(extrinsic_data.clone());
+		// 		log::info!("🇮🇹 on_finalize | Extrinsic data hex is {:?}", extrinsic_data_hex);
+		// 	}
+		// }
 
-		fn offchain_worker(block_number: BlockNumberFor<T> ) {
-			log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
+		// fn offchain_worker(block_number: BlockNumberFor<T> ) {
+		// 	log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
 
-			let key = Self::derived_key(block_number);
-			let storage_ref = StorageValueRef::persistent(&key);
+		// 	let key = Self::derived_key(block_number);
+		// 	let storage_ref = StorageValueRef::persistent(&key);
 
-			if let Ok(Some(data)) = storage_ref.get::<IndexingData>() {
-				log::info!("🇮🇹 offchain_worker | Local storage data: {:?}, {:?}", str::from_utf8(&data.0).unwrap_or("error"), data.1);
+		// 	if let Ok(Some(data)) = storage_ref.get::<IndexingData>() {
+		// 		log::info!("🇮🇹 offchain_worker | Local storage data: {:?}, {:?}", str::from_utf8(&data.0).unwrap_or("error"), data.1);
 
-				// download wasm
-				let wasm = match Self::download_wasm() {
-					Ok(wasm) => wasm,
-					Err(e) => {
-						log::info!("🇮🇹 offchain_worker | Error downloading wasm: {:?}", e);
-						return;
-					}
-				};
+		// 		// download wasm
+		// 		let wasm = match Self::download_wasm() {
+		// 			Ok(wasm) => wasm,
+		// 			Err(e) => {
+		// 				log::info!("🇮🇹 offchain_worker | Error downloading wasm: {:?}", e);
+		// 				return;
+		// 			}
+		// 		};
 
-				// execute wasm
-				let result = Self::execute_wasm(data.1 as i32, wasm);
-				log::info!("🇮🇹 offchain_worker | Wasm result: {:?}", result);
-			} else {
-				log::info!("🇮🇹 offchain_worker | Error reading from local storage.");
-			}
-		}
+		// 		// execute wasm
+		// 		let result = Self::execute_wasm(data.1 as i32, wasm);
+		// 		log::info!("🇮🇹 offchain_worker | Wasm result: {:?}", result);
+		// 	} else {
+		// 		log::info!("🇮🇹 offchain_worker | Error reading from local storage.");
+		// 	}
+		// }
 	}
 }
 
