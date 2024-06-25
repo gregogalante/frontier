@@ -41,9 +41,10 @@ use frame_support::{
 	derive_impl,
 	genesis_builder_helper::{build_state, get_preset},
 	parameter_types,
-	traits::{ConstBool, ConstU32, ConstU64, ConstU8, FindAuthor, OnFinalize, OnTimestampSet},
+	traits::{ConstBool, ConstU32, ConstU64, ConstU8, FindAuthor, OnFinalize, OnTimestampSet, AsEnsureOriginWithArg},
 	weights::{constants::WEIGHT_REF_TIME_PER_MILLIS, IdentityFee, Weight},
 };
+use frame_system::EnsureSigned;
 use pallet_transaction_payment::{ConstFeeMultiplier, FungibleAdapter};
 use sp_genesis_builder::PresetId;
 // Frontier
@@ -496,7 +497,13 @@ mod runtime {
 	pub type ManualSeal = pallet_manual_seal;
 
 	#[runtime::pallet_index(12)]
-	pub type PalletCustom = pallet_custom;
+	pub type Custom = pallet_custom;
+
+	#[runtime::pallet_index(13)]
+	pub type Assets = pallet_assets;
+
+	// #[runtime::pallet_index(14)]
+	// pub type Contracts = pallet_contracts;
 }
 
 #[derive(Clone)]
@@ -1061,7 +1068,48 @@ mod tests {
 	}
 }
 
-// CUSTOM PALLET CODE
+// ASSETS PALLET
+////////////////////////////////////////////////////////////////////////////////
+
+pub const MILLICENTS: Balance = 1_000_000_000;
+pub const CENTS: Balance = 1_000 * MILLICENTS; // assume this is worth about a cent.
+pub const DOLLARS: Balance = 100 * CENTS;
+
+parameter_types! {
+	pub const AssetDeposit: Balance = 100 * DOLLARS;
+	pub const ApprovalDeposit: Balance = 1 * DOLLARS;
+	pub const StringLimit: u32 = 50;
+	pub const MetadataDepositBase: Balance = 10 * DOLLARS;
+	pub const MetadataDepositPerByte: Balance = 1 * DOLLARS;
+}
+
+impl pallet_assets::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type Balance = u128;
+	type AssetId = u32;
+	type AssetIdParameter = scale_codec::Compact<u32>;
+	type CreateOrigin = AsEnsureOriginWithArg<EnsureSigned<AccountId>>;
+	type Currency = Balances;
+	type ForceOrigin = frame_system::EnsureRoot<AccountId>;
+	type AssetDeposit = AssetDeposit;
+	type AssetAccountDeposit = ConstU128<DOLLARS>;
+	type MetadataDepositBase = MetadataDepositBase;
+	type MetadataDepositPerByte = MetadataDepositPerByte;
+	type ApprovalDeposit = ApprovalDeposit;
+	type StringLimit = StringLimit;
+	type Freezer = ();
+	type Extra = ();
+	type WeightInfo = pallet_assets::weights::SubstrateWeight<Runtime>;
+	type RemoveItemsLimit = ConstU32<1000>;
+	type CallbackHandle = ();
+}
+
+// CONTRACTS PALLET
+////////////////////////////////////////////////////////////////////////////////
+
+// impl pallet_contracts::Config for Runtime {}
+
+// CUSTOM PALLET
 ////////////////////////////////////////////////////////////////////////////////
 
 #[frame_support::pallet]
