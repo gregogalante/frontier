@@ -496,7 +496,7 @@ mod runtime {
 	pub type ManualSeal = pallet_manual_seal;
 
 	#[runtime::pallet_index(12)]
-	pub type PalletCustom = pallet_custom;
+	pub type Custom = pallet_custom;
 }
 
 #[derive(Clone)]
