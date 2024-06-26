@@ -507,8 +507,8 @@ mod runtime {
 	#[runtime::pallet_index(14)]
 	pub type Contracts = pallet_contracts;
 
-	#[runtime::pallet_index(15)]
-	pub type Assets = pallet_assets;
+	// #[runtime::pallet_index(15)]
+	// pub type Assets = pallet_assets;
 }
 
 #[derive(Clone)]
@@ -1076,8 +1076,7 @@ impl_runtime_apis! {
 		) -> pallet_contracts::ContractExecResult<Balance, EventRecord> {
 			let gas_limit = gas_limit.unwrap_or(BlockWeights::get().max_block);
 			log::info!(
-				target: "runtime::contracts",
-				"Call from {:?} to {:?} with value {:?} and gas limit {:?}",
+				"🇮🇹 Call from {:?} to {:?} with value {:?} and gas limit {:?}",
 				origin,
 				dest,
 				value,
@@ -1113,7 +1112,7 @@ impl_runtime_apis! {
 				value,
 				gas_limit,
 			);
-			let bare_instantiate = Contracts::bare_instantiate(
+			Contracts::bare_instantiate(
 				origin,
 				value,
 				gas_limit,
@@ -1123,14 +1122,7 @@ impl_runtime_apis! {
 				salt,
 				CONTRACTS_DEBUG_OUTPUT,
 				CONTRACTS_EVENTS,
-			);
-
-			log::info!(
-				"🇮🇹 Instantiate result: {:?}",
-				bare_instantiate
-			);
-
-			bare_instantiate
+			)
 		}
 
 		fn upload_code(
@@ -1178,38 +1170,38 @@ mod tests {
 // ASSETS PALLET
 ////////////////////////////////////////////////////////////////////////////////
 
-pub const MILLICENTS: Balance = 1_000_000_000;
-pub const CENTS: Balance = 1_000 * MILLICENTS; // assume this is worth about a cent.
-pub const DOLLARS: Balance = 100 * CENTS;
+// pub const MILLICENTS: Balance = 1_000_000_000;
+// pub const CENTS: Balance = 1_000 * MILLICENTS; // assume this is worth about a cent.
+// pub const DOLLARS: Balance = 100 * CENTS;
 
-parameter_types! {
-	pub const AssetDeposit: Balance = 100 * DOLLARS;
-	pub const ApprovalDeposit: Balance = 1 * DOLLARS;
-	pub const StringLimit: u32 = 50;
-	pub const MetadataDepositBase: Balance = 10 * DOLLARS;
-	pub const MetadataDepositPerByte: Balance = 1 * DOLLARS;
-}
+// parameter_types! {
+// 	pub const AssetDeposit: Balance = 100 * DOLLARS;
+// 	pub const ApprovalDeposit: Balance = 1 * DOLLARS;
+// 	pub const StringLimit: u32 = 50;
+// 	pub const MetadataDepositBase: Balance = 10 * DOLLARS;
+// 	pub const MetadataDepositPerByte: Balance = 1 * DOLLARS;
+// }
 
-impl pallet_assets::Config for Runtime {
-	type RuntimeEvent = RuntimeEvent;
-	type Balance = u128;
-	type AssetId = u32;
-	type AssetIdParameter = scale_codec::Compact<u32>;
-	type CreateOrigin = AsEnsureOriginWithArg<EnsureSigned<AccountId>>;
-	type Currency = Balances;
-	type ForceOrigin = frame_system::EnsureRoot<AccountId>;
-	type AssetDeposit = AssetDeposit;
-	type AssetAccountDeposit = ConstU128<DOLLARS>;
-	type MetadataDepositBase = MetadataDepositBase;
-	type MetadataDepositPerByte = MetadataDepositPerByte;
-	type ApprovalDeposit = ApprovalDeposit;
-	type StringLimit = StringLimit;
-	type Freezer = ();
-	type Extra = ();
-	type WeightInfo = pallet_assets::weights::SubstrateWeight<Runtime>;
-	type RemoveItemsLimit = ConstU32<1000>;
-	type CallbackHandle = ();
-}
+// impl pallet_assets::Config for Runtime {
+// 	type RuntimeEvent = RuntimeEvent;
+// 	type Balance = u128;
+// 	type AssetId = u32;
+// 	type AssetIdParameter = scale_codec::Compact<u32>;
+// 	type CreateOrigin = AsEnsureOriginWithArg<EnsureSigned<AccountId>>;
+// 	type Currency = Balances;
+// 	type ForceOrigin = frame_system::EnsureRoot<AccountId>;
+// 	type AssetDeposit = AssetDeposit;
+// 	type AssetAccountDeposit = ConstU128<DOLLARS>;
+// 	type MetadataDepositBase = MetadataDepositBase;
+// 	type MetadataDepositPerByte = MetadataDepositPerByte;
+// 	type ApprovalDeposit = ApprovalDeposit;
+// 	type StringLimit = StringLimit;
+// 	type Freezer = ();
+// 	type Extra = ();
+// 	type WeightInfo = pallet_assets::weights::SubstrateWeight<Runtime>;
+// 	type RemoveItemsLimit = ConstU32<1000>;
+// 	type CallbackHandle = ();
+// }
 
 // RANDOMNESS COLLECTIVE FLIP PALLET
 ////////////////////////////////////////////////////////////////////////////////
