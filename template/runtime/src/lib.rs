@@ -361,7 +361,8 @@ impl pallet_evm::Config for Runtime {
 	type PrecompilesValue = PrecompilesValue;
 	type ChainId = EVMChainId;
 	type BlockGasLimit = BlockGasLimit;
-	type Runner = pallet_evm::runner::stack::Runner<Self>;
+	// type Runner = pallet_evm::runner::stack::Runner<Self>;
+	type Runner = pallet_evm::runner::contracts::Runner<Self>;
 	type OnChargeTransaction = ();
 	type OnCreate = ();
 	type FindAuthor = FindAuthorTruncated<Aura>;
@@ -1059,6 +1060,63 @@ mod tests {
 			.base_extrinsic;
 		assert!(base_extrinsic.ref_time() <= min_ethereum_transaction_weight.ref_time());
 	}
+}
+
+// CONTRACTS PALLET
+////////////////////////////////////////////////////////////////////////////////
+
+parameter_types! {
+	pub const DepositPerItem: Balance = 1;
+	pub const DepositPerByte: Balance = 1;
+	pub const DefaultDepositLimit: Balance = 1024 * 1024;
+	pub Schedule: pallet_contracts::Schedule<Runtime> = Default::default();
+	pub CodeHashLockupDepositPercent: Perbill = Perbill::from_percent(30);
+}
+
+pub struct DummyRandomness<T: pallet_contracts::Config>(sp_version::sp_std::marker::PhantomData<T>);
+
+impl<T: pallet_contracts::Config>
+	frame_support::traits::Randomness<T::Hash, frame_system::pallet_prelude::BlockNumberFor<T>>
+	for DummyRandomness<T>
+{
+	fn random(_subject: &[u8]) -> (T::Hash, frame_system::pallet_prelude::BlockNumberFor<T>) {
+		(Default::default(), Default::default())
+	}
+}
+
+impl pallet_contracts::Config for Runtime {
+	type Time = Timestamp;
+	type Randomness = DummyRandomness<Runtime>;
+	type Currency = Balances;
+	type RuntimeCall = RuntimeCall;
+	type RuntimeEvent = RuntimeEvent;
+	type CallFilter = ();
+	type DepositPerItem = DepositPerItem;
+	type DepositPerByte = DepositPerByte;
+	type DefaultDepositLimit = DefaultDepositLimit;
+	type CallStack = [pallet_contracts::Frame<Self>; 5];
+	type WeightPrice = pallet_transaction_payment::Pallet<Self>;
+	type WeightInfo = pallet_contracts::weights::SubstrateWeight<Self>;
+	type ChainExtension = ();
+	type Schedule = Schedule;
+	type AddressGenerator = pallet_contracts::DefaultAddressGenerator;
+	type MaxCodeLen = ConstU32<{ 123 * 1024 }>;
+	type MaxStorageKeyLen = ConstU32<128>;
+	type UnsafeUnstableInterface = ConstBool<false>;
+	type MaxDebugBufferLen = ConstU32<{ 2 * 1024 * 1024 }>;
+	type RuntimeHoldReason = RuntimeHoldReason;
+	type UploadOrigin = EnsureSigned<Self::AccountId>;
+	type InstantiateOrigin = EnsureSigned<Self::AccountId>;
+	#[cfg(not(feature = "runtime-benchmarks"))]
+	type Migrations = ();
+	#[cfg(feature = "runtime-benchmarks")]
+	type Migrations = pallet_contracts::migration::codegen::BenchMigrations;
+	type MaxDelegateDependencies = ConstU32<32>;
+	type CodeHashLockupDepositPercent = CodeHashLockupDepositPercent;
+	type Debug = ();
+	type Environment = ();
+	type Xcm = ();
+	type ApiVersion = ();
 }
 
 // CUSTOM PALLET CODE
