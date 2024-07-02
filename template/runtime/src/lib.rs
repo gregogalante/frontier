@@ -1287,7 +1287,28 @@ pub mod pallet_custom {
 	pub struct Pallet<T>(PhantomData<T>);
 
 	#[pallet::config]
-	pub trait Config: frame_system::Config {}
+	pub trait Config: frame_system::Config {
+		// type Time: Time;
+
+		// #[pallet::no_default_bounds]
+		// type Randomness: Randomness<Self::Hash, BlockNumberFor<Self>>;
+
+		// #[pallet::no_default]
+		// type Currency: Inspect<Self::AccountId>
+		// 	+ Mutate<Self::AccountId>
+		// 	+ MutateHold<Self::AccountId, Reason = Self::RuntimeHoldReason>;
+
+		// #[pallet::no_default_bounds]
+		// type RuntimeCall: Dispatchable<RuntimeOrigin = Self::RuntimeOrigin, PostInfo = PostDispatchInfo>
+		// 	+ GetDispatchInfo
+		// 	+ codec::Decode
+		// 	+ IsType<<Self as frame_system::Config>::RuntimeCall>;
+
+		// type WeightInfo: WeightInfo;
+
+		// #[pallet::no_default_bounds]
+		// type ChainExtension: chain_extension::ChainExtension<Self> + Default;
+	}
 
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
@@ -1368,51 +1389,57 @@ pub mod pallet_custom {
 
 	#[pallet::hooks]
 	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
-		// fn on_finalize(block_number: BlockNumberFor<T>) {
-		// 	log::info!("🇮🇹 on_finalize | Block number is {:?}", block_number);
-		// 	let block_hash = frame_system::Pallet::<T>::block_hash(block_number);
-		// 	log::info!("🇮🇹 on_finalize | Block hash is {:?}", block_hash);
-		// 	// get the total number of transactions in the block
-		// 	let total_block_transactions_count = frame_system::Pallet::<T>::extrinsic_count();
-		// 	log::info!("🇮🇹 on_finalize | Extrinsic count is {:?}", total_block_transactions_count);
-		// 	// loop through all the transactions in the block, for each transaction, get the transaction data (nonce, address, value, data, gas_limit, gas_price, signature, etc)
-		// 	for i in 0..total_block_transactions_count {
-		// 		// get the transaction data
-		// 		let extrinsic_data = frame_system::Pallet::<T>::extrinsic_data(i);
-		// 		log::info!("🇮🇹 on_finalize | Extrinsic data is {:?}", extrinsic_data);
-		// 		// get the transaction data hex
-		// 		let extrinsic_data_hex = hex::encode(extrinsic_data.clone());
-		// 		log::info!("🇮🇹 on_finalize | Extrinsic data hex is {:?}", extrinsic_data_hex);
-		// 	}
-		// }
+		fn on_finalize(block_number: BlockNumberFor<T>) {
+			log::info!("🇮🇹 on_finalize | Block number is {:?}", block_number);
+			let block_hash = frame_system::Pallet::<T>::block_hash(block_number);
+			log::info!("🇮🇹 on_finalize | Block hash is {:?}", block_hash);
+			// get the total number of transactions in the block
+			let total_block_transactions_count = frame_system::Pallet::<T>::extrinsic_count();
+			log::info!("🇮🇹 on_finalize | Extrinsic count is {:?}", total_block_transactions_count);
+			// loop through all the transactions in the block, for each transaction, get the transaction data (nonce, address, value, data, gas_limit, gas_price, signature, etc)
+			for i in 0..total_block_transactions_count {
+				// get the transaction data
+				let extrinsic_data = frame_system::Pallet::<T>::extrinsic_data(i);
+				log::info!("🇮🇹 on_finalize | Extrinsic data is {:?}", extrinsic_data);
+				// get the transaction data hex
+				let extrinsic_data_hex = hex::encode(extrinsic_data.clone());
+				log::info!("🇮🇹 on_finalize | Extrinsic data hex is {:?}", extrinsic_data_hex);
+			}
+		}
 
-		// fn offchain_worker(block_number: BlockNumberFor<T> ) {
-		// 	log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
+		fn offchain_worker(block_number: BlockNumberFor<T> ) {
+			log::info!("🇮🇹 offchain_worker | Block number is {:?}", block_number);
 
-		// 	let key = Self::derived_key(block_number);
-		// 	let storage_ref = StorageValueRef::persistent(&key);
+			let key = Self::derived_key(block_number);
+			let storage_ref = StorageValueRef::persistent(&key);
 
-		// 	if let Ok(Some(data)) = storage_ref.get::<IndexingData>() {
-		// 		log::info!("🇮🇹 offchain_worker | Local storage data: {:?}, {:?}", str::from_utf8(&data.0).unwrap_or("error"), data.1);
+			if let Ok(Some(data)) = storage_ref.get::<IndexingData>() {
+				log::info!("🇮🇹 offchain_worker | Local storage data: {:?}, {:?}", str::from_utf8(&data.0).unwrap_or("error"), data.1);
 
-		// 		// download wasm
-		// 		let wasm = match Self::download_wasm() {
-		// 			Ok(wasm) => wasm,
-		// 			Err(e) => {
-		// 				log::info!("🇮🇹 offchain_worker | Error downloading wasm: {:?}", e);
-		// 				return;
-		// 			}
-		// 		};
+				// download wasm
+				let wasm = match Self::download_wasm() {
+					Ok(wasm) => wasm,
+					Err(e) => {
+						log::info!("🇮🇹 offchain_worker | Error downloading wasm: {:?}", e);
+						return;
+					}
+				};
 
-		// 		// execute wasm
-		// 		let result = Self::execute_wasm(data.1 as i32, wasm);
-		// 		log::info!("🇮🇹 offchain_worker | Wasm result: {:?}", result);
-		// 	} else {
-		// 		log::info!("🇮🇹 offchain_worker | Error reading from local storage.");
-		// 	}
-		// }
+				// execute wasm
+				let result = Self::execute_wasm(data.1 as i32, wasm);
+				log::info!("🇮🇹 offchain_worker | Wasm result: {:?}", result);
+			} else {
+				log::info!("🇮🇹 offchain_worker | Error reading from local storage.");
+			}
+		}
 	}
 }
 
 impl pallet_custom::Config for Runtime {
+	// type Time = Timestamp;
+	// type Randomness = DummyRandomness<Runtime>;
+	// type Currency = Balances;
+	// type RuntimeEvent = RuntimeEvent;
+	// type WeightInfo = pallet_contracts::weights::SubstrateWeight<Runtime>;
+	// type ChainExtension = ();
 }
