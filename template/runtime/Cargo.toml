@@ -47,7 +47,7 @@ pallet-timestamp = { workspace = true }
 pallet-transaction-payment = { workspace = true }
 pallet-transaction-payment-rpc-runtime-api = { workspace = true }
 pallet-utility = { workspace = true }
-pallet-contracts = { workspace = true }
+# pallet-contracts = { workspace = true }
 
 # Frontier
 fp-account = { workspace = true, features = ["serde"] }
@@ -103,7 +103,7 @@ std = [
 	"pallet-transaction-payment/std",
 	"pallet-transaction-payment-rpc-runtime-api/std",
 	"pallet-utility/std",
-	"pallet-contracts/std",
+	# "pallet-contracts/std",
 	# Frontier
 	"fp-account/std",
 	"fp-evm/std",
@@ -129,6 +129,6 @@ runtime-benchmarks = [
 	"pallet-sudo/runtime-benchmarks",
 	"pallet-ethereum/runtime-benchmarks",
 	"pallet-evm/runtime-benchmarks",
-	"pallet-contracts/runtime-benchmarks",
+	# "pallet-contracts/runtime-benchmarks",
 	"pallet-utility/runtime-benchmarks",
 ]
