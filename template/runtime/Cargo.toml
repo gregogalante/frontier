@@ -47,6 +47,7 @@ pallet-timestamp = { workspace = true }
 pallet-transaction-payment = { workspace = true }
 pallet-transaction-payment-rpc-runtime-api = { workspace = true }
 pallet-utility = { workspace = true }
+pallet-insecure-randomness-collective-flip = { workspace = true }
 pallet-contracts = { workspace = true }
 
 # Frontier

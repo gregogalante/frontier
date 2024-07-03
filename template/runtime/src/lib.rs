@@ -41,7 +41,7 @@ use frame_support::{
 	derive_impl,
 	genesis_builder_helper::{build_state, get_preset},
 	parameter_types,
-	traits::{ConstBool, ConstU32, ConstU64, ConstU8, FindAuthor, OnFinalize, OnTimestampSet},
+	traits::{ConstBool, ConstU32, ConstU64, ConstU8, FindAuthor, OnFinalize, OnTimestampSet, Nothing},
 	weights::{constants::WEIGHT_REF_TIME_PER_MILLIS, IdentityFee, Weight},
 };
 use frame_system::EnsureSigned;
@@ -502,6 +502,9 @@ mod runtime {
 	pub type Custom = pallet_custom;
 
 	#[runtime::pallet_index(13)]
+	pub type RandomnessCollectiveFlip = pallet_insecure_randomness_collective_flip;
+
+	#[runtime::pallet_index(14)]
 	pub type Contracts = pallet_contracts;
 }
 
@@ -1069,13 +1072,6 @@ impl_runtime_apis! {
 			input_data: Vec<u8>,
 		) -> pallet_contracts::ContractExecResult<Balance, EventRecord> {
 			let gas_limit = gas_limit.unwrap_or(BlockWeights::get().max_block);
-			log::info!(
-				"🇮🇹 Call from {:?} to {:?} with value {:?} and gas limit {:?}",
-				origin,
-				dest,
-				value,
-				gas_limit,
-			);
 			Contracts::bare_call(
 				origin,
 				dest,
@@ -1100,12 +1096,6 @@ impl_runtime_apis! {
 		) -> pallet_contracts::ContractInstantiateResult<AccountId, Balance, EventRecord>
 		{
 			let gas_limit = gas_limit.unwrap_or(BlockWeights::get().max_block);
-			log::info!(
-				"🇮🇹 Instantiate from {:?} with value {:?} and gas limit {:?}",
-				origin,
-				value,
-				gas_limit,
-			);
 			Contracts::bare_instantiate(
 				origin,
 				value,
@@ -1126,11 +1116,6 @@ impl_runtime_apis! {
 			determinism: pallet_contracts::Determinism,
 		) -> pallet_contracts::CodeUploadResult<Hash, Balance>
 		{
-			log::info!(
-				"🇮🇹 Upload code from {:?} with storage deposit limit {:?}",
-				origin,
-				storage_deposit_limit,
-			);
 			Contracts::bare_upload_code(origin, code, storage_deposit_limit, determinism)
 		}
 
@@ -1138,11 +1123,6 @@ impl_runtime_apis! {
 			address: AccountId,
 			key: Vec<u8>,
 		) -> pallet_contracts::GetStorageResult {
-			log::info!(
-				"🇮🇹 Get storage from {:?} with key {:?}",
-				address,
-				key,
-			);
 			Contracts::get_storage(address, key)
 		}
 	}
@@ -1164,6 +1144,8 @@ mod tests {
 // CONTRACTS PALLET
 ////////////////////////////////////////////////////////////////////////////////
 
+impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
+
 const CONTRACTS_DEBUG_OUTPUT: pallet_contracts::DebugInfo = pallet_contracts::DebugInfo::UnsafeDebug;
 const CONTRACTS_EVENTS: pallet_contracts::CollectEvents = pallet_contracts::CollectEvents::UnsafeCollect;
 const UNIT: Balance = 1_000_000_000_000;
@@ -1183,25 +1165,6 @@ fn schedule<T: pallet_contracts::Config>() -> pallet_contracts::Schedule<T> {
 	}
 }
 
-pub struct DummyRandomness<T: pallet_contracts::Config>(sp_version::sp_std::marker::PhantomData<T>);
-
-impl<T: pallet_contracts::Config>
-	frame_support::traits::Randomness<T::Hash, frame_system::pallet_prelude::BlockNumberFor<T>>
-	for DummyRandomness<T>
-{
-	fn random(_subject: &[u8]) -> (T::Hash, frame_system::pallet_prelude::BlockNumberFor<T>) {
-		(Default::default(), Default::default())
-	}
-}
-
-pub enum AllowBalancesCall {}
-impl frame_support::traits::Contains<RuntimeCall> for AllowBalancesCall {
-	fn contains(call: &RuntimeCall) -> bool {
-		log::info!("🇮🇹 AllowBalancesCall contains | call is {:?}", call);
-		matches!(call, RuntimeCall::Balances(BalancesCall::transfer_allow_death { .. }))
-	}
-}
-
 parameter_types! {
 	pub const DepositPerItem: Balance = deposit(1, 0);
 	pub const DepositPerByte: Balance = deposit(0, 1);
@@ -1213,7 +1176,7 @@ parameter_types! {
 
 impl pallet_contracts::Config for Runtime {
 	type Time = Timestamp;
-	type Randomness = DummyRandomness<Runtime>;
+	type Randomness = RandomnessCollectiveFlip;
 	type Currency = Balances;
 	type RuntimeEvent = RuntimeEvent;
 	type RuntimeCall = RuntimeCall;
@@ -1224,7 +1187,7 @@ impl pallet_contracts::Config for Runtime {
 	/// and make sure they are stable. Dispatchables exposed to contracts are not allowed to
 	/// change because that would break already deployed contracts. The `RuntimeCall` structure
 	/// itself is not allowed to change the indices of existing pallets, too.
-	type CallFilter = AllowBalancesCall;
+	type CallFilter = Nothing;
 	type DepositPerItem = DepositPerItem;
 	type DepositPerByte = DepositPerByte;
 	type CallStack = [pallet_contracts::Frame<Self>; 23];
