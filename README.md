@@ -57,51 +57,15 @@ If your pull request introduces a new crate, please set its version to `1.0.0-de
 cargo build --release # to compile the project with optimizations
 ```
 
-**Run first node Alice:**
-
-```bash
-./target/release/frontier-template-node purge-chain --base-path /tmp/alice --chain local -y
-
-./target/release/frontier-template-node \
---base-path /tmp/alice \
---chain local \
---alice \
---port 30333 \
---rpc-port 9944 \
---node-key 0000000000000000000000000000000000000000000000000000000000000001 \
---telemetry-url "wss://telemetry.polkadot.io/submit/ 0" \
---validator
-```
-
-**Run second node Bob:**
-
-```bash
-./target/release/frontier-template-node purge-chain --base-path /tmp/bob --chain local -y
-
-./target/release/frontier-template-node \
---base-path /tmp/bob \
---chain local \
---bob \
---port 30334 \
---rpc-port 9945 \
---telemetry-url "wss://telemetry.polkadot.io/submit/ 0" \
---validator \
---bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
-```
-
-NOTE: In case of problems with secret:
+**Run all in one command:**
 
 ```bash
 mkdir -p /tmp/bob/chains/local_testnet/network
 ./target/release/frontier-template-node key generate-node-key --file /tmp/bob/chains/local_testnet/network/secret_ed25519
+
+foreman start
 ```
 
 **View chain from block explorer:**
 
 Visit: [https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer)
-
-**Run all in one command:**
-
-```bash
-foreman start
-```

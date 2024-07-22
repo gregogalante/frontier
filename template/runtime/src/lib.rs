@@ -1288,26 +1288,6 @@ pub mod pallet_custom {
 
 	#[pallet::config]
 	pub trait Config: frame_system::Config {
-		// type Time: Time;
-
-		// #[pallet::no_default_bounds]
-		// type Randomness: Randomness<Self::Hash, BlockNumberFor<Self>>;
-
-		// #[pallet::no_default]
-		// type Currency: Inspect<Self::AccountId>
-		// 	+ Mutate<Self::AccountId>
-		// 	+ MutateHold<Self::AccountId, Reason = Self::RuntimeHoldReason>;
-
-		// #[pallet::no_default_bounds]
-		// type RuntimeCall: Dispatchable<RuntimeOrigin = Self::RuntimeOrigin, PostInfo = PostDispatchInfo>
-		// 	+ GetDispatchInfo
-		// 	+ codec::Decode
-		// 	+ IsType<<Self as frame_system::Config>::RuntimeCall>;
-
-		// type WeightInfo: WeightInfo;
-
-		// #[pallet::no_default_bounds]
-		// type ChainExtension: chain_extension::ChainExtension<Self> + Default;
 	}
 
 	#[pallet::call]
@@ -1418,10 +1398,4 @@ pub mod pallet_custom {
 }
 
 impl pallet_custom::Config for Runtime {
-	// type Time = Timestamp;
-	// type Randomness = DummyRandomness<Runtime>;
-	// type Currency = Balances;
-	// type RuntimeEvent = RuntimeEvent;
-	// type WeightInfo = pallet_contracts::weights::SubstrateWeight<Runtime>;
-	// type ChainExtension = ();
 }
